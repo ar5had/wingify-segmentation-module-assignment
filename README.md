@@ -2,9 +2,7 @@
 
 Segmentation is used show a special version/variation of the user's webpage to a selected segment of users. Ideally, the user would enter the URL for that special version of his website on our tool and then specify all the segments that he would want to show this version to.
 
-Some of the visitor segments are:
-
-Location - All Countries
+Some of the visitor segments are:Location - All Countries
 
 Browser - Chrome, Internet Explorer, Firefox, Safari, Opera
 
