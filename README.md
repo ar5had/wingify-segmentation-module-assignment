@@ -1,6 +1,6 @@
 # Segmentation Module
 
-Segmentation is used show a special version/variation of the user's webpage to a selected segment of users. Ideally, the user would enter the URL for that special version of his website on our tool and then specify all the segments that he would want to show this version to.
+Segmentation is used show a special version/variation of the user's webpage to a selected segment of users. Ideally, the user would enter the URL for that special version of his website on a web tool and then specify all the segments that he would want to show this version to.
 
 **Some of the visitor segments are:**
 
