@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segmentation Module</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/module.css" media="screen" title="no title" charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,400italic,300italic,700|Source+Sans+Pro:400,300,600,700,900' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="header col-xs-12">
+      <section class="add_section">
+        <div class="sect_wrapper">
+          <h1>User Segments</h1>
+          <div class="small_btn pull-right">
+            <button type="button" name="button" class="rem removeSegment"><span class="glyphicon glyphicon-trash"></span></button>
+            <button type="button" name="button" class="add showpopup"><span class="glyphicon glyphicon-plus"></span></button>
+          </div>
+          <div class="large_btn pull-right">
+            <button type="button" name="button" class="rem_segment removeSegment">Remove Segment</button>
+            <button type="button" name="button" class="add_segment showpopup">Add Segment</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="m_wrapper">
+      <div class="sections">
+        <section class="empty_sect">
+          <div class="es_wrapper">
+            <img class="img-responsive seg_img" src="images/segment.png" alt=""/>
+            <h5>No segments created</h5>
+            <p>
+              Segmentation is used show a special version/variation of the user's webpage to a selected segment of users.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div id="hider" class="hidden"></div>
+    <div class="col-xs-12 hidden" id="msg_wrapper">
+      <div id="showMsg" class="col-xs-12">
+        <h2 class="col-xs-12" id="error_msg_sub">Warning</h2>
+        <h2 class="col-xs-12" id="error_msg">Fields of the basic info are required.</h2>
+        <button type="button" name="button" id="ok_btn">OK</button>
+      </div>
+    </div>
+    <div class="col-xs-12 main_wrapper hidden" id="popup">
+      <div class="popup">
+        <div class="wrapper">
+          <div class="top_content">
+            <h2>Segment</h2>
+          </div>
+          <div class="main_content">
+            <div class="segment_info" id="start_mc">
+              <div class="col-xs-12">
+                <h2>Basic Info*</h2>
+              </div>
+              <div class="col-xs-12">
+                <h3>Segment name</h3>
+                <input type="text" class="seg_name" maxlength="70"/>
+              </div>
+              <div class="col-xs-12">
+                <h3>File path</h3>
+                <input type="text" class="file_path" placeholder="http://"/>
+              </div>
+            </div>
+            <div class="location_info">
+              <div class="col-xs-12">
+                <h2>Location</h2>
+              </div>
+              <div class="col-xs-12">
+                <h3>Country</h3>
+                <div class="dropdown">
+                  <select class="countries" name="countries">
+                    <option value="" disabled selected>Select country</option>
+                    <option value="All">All</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="India">India</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Russia">Russia</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="US">United States</option>
+                  </select>
+                </div>
+                <div class="countries_selected selected_opt_area">
+                </div>
+              </div>
+            </div>
+            <div class="device_info">
+              <div class="col-xs-12">
+                <h2>Device info</h2>
+              </div>
+              <div class="col-xs-12">
+                <h3>Device type</h3>
+                <div class="dropdown">
+                  <select class="device_type" name="device">
+                    <option value="" disabled selected>Select device</option>
+                    <option value="All">All</option>
+                    <option value="Computer">Computer</option>
+                    <option value="Tablet/Ipad">Tablet/Ipad</option>
+                    <option value="Mobile">Mobile</option>
+                  </select>
+                </div>
+                <div class="device_selected selected_opt_area">
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h3>Device OS</h3>
+                <div class="dropdown">
+                  <select class="device_os" name="device_os">
+                    <option value="" disabled selected>Select OS</option>
+                    <option value="All">All</option>
+                    <option value="Windows">Windows</option>
+                    <option value="Linux">Linux</option>
+                    <option value="Mac">Mac OS</option>
+                    <option value="Unix">Unix</option>
+                    <option value="Android">Android</option>
+                    <option value="IOS">IOS</option>
+                  </select>
+                </div>
+                <div class="device_os_selected selected_opt_area">
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h3>Browser</h3>
+                <div class="dropdown">
+                  <select class="device_browser" name="device_browser">
+                    <option value="" disabled selected>Select browser</option>
+                    <option value="All">All</option>
+                    <option value="Chrome">Chrome</option>
+                    <option value="Firefox">Firefox</option>
+                    <option value="IE">Internet Explorer</option>
+                    <option value="Edge">Edge</option>
+                    <option value="Safari">Safari</option>
+                    <option value="Opera">Opera</option>
+                  </select>
+                </div>
+                <div class="device_browser_selected selected_opt_area">
+                </div>
+              </div>
+            </div>
+            <div class="visitor_info">
+              <div class="col-xs-12">
+                <h2 class="visitor_heading">Visitor info</h2>
+              </div>
+              <div class="col-xs-12">
+                <h3>Visit day</h3>
+                <div class="dropdown">
+                  <select class="visit_day" name="visit_day">
+                    <option value="" disabled selected>Select day</option>
+                    <option value="Anyday">Anyday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                  </select>
+                </div>
+                <div class="visit_day_selected selected_opt_area">
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <h3 class="visitor">Visitor</h3>
+                <div class="radBtn active_rad" data-val="Both" id="both_rad">
+                  <label for="rad1">Both
+                      <span class="rad_info">Targets both returning and new users</span>
+                  </label>
+                </div>
+                <div class="radBtn" data-val="New">
+                  <label for="rad2">New
+                      <span class="rad_info">Targets only those users who are visiting for the first time</span>
+                  </label>
+
+                </div>
+                <div class="radBtn" data-val="Returning">
+                  <label for="rad3">Returning
+                    <span class="rad_info">Targets users that have visited before</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fbuttons">
+            <button class="col-xs-6 buttonClosens" type="button" name="button" href="#start_mc">Cancel</button>
+            <button class="col-xs-6 buttonClose" type="button" name="button">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/module.js"></script>
+  </body>
+</html>
