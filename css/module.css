@@ -211,7 +211,7 @@ section.segment_sect {
 
   .add_section {
     height: 90px;
-    box-shadow: 0 4px 25px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
+    box-shadow: 0 4px 29px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
     margin: 25px auto;
   }
 
@@ -256,7 +256,7 @@ section.segment_sect {
   }
 }
 
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 290px) {
 
   .sect_wrapper > h1 {
     font-size: 17px;
@@ -279,8 +279,8 @@ section.segment_sect {
 }
 
 .seg_selected {
-  transform: translateX(1%);
-  box-shadow: 0 4px 15px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
+  margin: 20px auto;
+  box-shadow: 0 4px 29px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
 }
 
 .control_btn_select, .control_btn_edit {
@@ -310,6 +310,7 @@ section.segment_sect {
   padding: 0;
   left: 10px;
   background: none;
+  border-radius: none;
   border: none;
 }
 
@@ -321,9 +322,9 @@ section.segment_sect {
   margin: 0;
   font-family: "Glyphicons Halflings";
   content: "\e013";
-  color: #f3f3f3;
+  color: #ddd;
   font-weight: 100;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .selected_seg::before {
@@ -357,10 +358,6 @@ section.segment_sect {
   color: #999;
 }
 
-#fp_value {
-
-}
-
 #fp, #loc, #dt, #do, #db, #vt, #vd {
   font-size: 13px;
 }
@@ -372,28 +369,6 @@ section.segment_sect {
   padding: 0;
   word-wrap: break-word;
   overflow: hidden;
-}
-
-#location {
-
-}
-
-#loc {
-
-}
-
-#loc_value {
-}
-
-#device_typ {
-
-}
-
-#dt {
-
-}
-
-#dt_val {
 }
 
 /************************************error message styling ***********************************/
@@ -408,8 +383,8 @@ section.segment_sect {
 }
 
 #showMsg {
-  background: #f9f9f9;
-  box-shadow: 0 4px 33px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
+  background: #f2f2f2;
+  box-shadow: 0 4px 29px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
   border: solid 1px #ddd;
 }
 
@@ -503,7 +478,7 @@ p {
   position: relative;
   padding: 0;
   background-color: #f2f2f2;
-  box-shadow: 0 4px 33px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
+  box-shadow: 0 4px 29px rgba(0,0,0,.22), 0 0 0 1px rgba(0,0,0,.04);
 }
 
 .wrapper > div > div {
