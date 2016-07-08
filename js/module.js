@@ -13,7 +13,7 @@ $(document).ready(function () {
     $('#popup').fadeIn(400);
   });
 
-  $(".buttonClose").click(function () {
+  $(".buttonClose").click(function(event) {
     if(bindSelections()){
       $("body").removeClass("modal-open");
       $("#hider").fadeOut(400);
@@ -26,6 +26,8 @@ $(document).ready(function () {
       $(".main_content").animate({scrollTop: 0}, 500);
     }
   });
+
+  var editPopup = false, editSegment = null;
 
   $(".buttonClosens").click(function () {
     $("body").removeClass("modal-open");
@@ -112,6 +114,8 @@ function getSegment() {
       remActRad();
       document.querySelector("#"+visitorType).className = "radBtn active_rad";
       $(".showpopup").click();
+      editPopup = true;
+      editSegment = segment;
     });
   }
 
@@ -202,7 +206,7 @@ function getSegment() {
 ///////// bind modal selections with segments
 
   function bindSelections() {
-    var segment = getSegment();
+    var segment = editPopup ? editSegment : getSegment();
     var name = document.querySelector(".seg_name").value || "";
     var filePath = document.querySelector(".file_path").value || "";
     var location = getButtonsText(document.querySelector(".countries_selected.selected_opt_area").childNodes) || "All";
@@ -225,7 +229,12 @@ function getSegment() {
       segment.querySelector("#db_value").textContent = browser;
       segment.querySelector("#vd_value").textContent = visitDay;
       segment.querySelector("#vt_value").textContent = visitorType;
-      addSegment(segment);
+      if(!editPopup)
+        addSegment(segment);
+      else{
+        editPopup = false;
+        editSegment = null;
+      }
       return true;
     }
   }
@@ -257,6 +266,8 @@ function getSegment() {
 //////// refresh Modal function
 
   function refreshModal() {
+    editPopup = false;
+    editSegment = null;
     document.querySelector(".main_content").scrollTop = 0;
     document.querySelector(".seg_name").value = "";
     document.querySelector(".file_path").value = "";
