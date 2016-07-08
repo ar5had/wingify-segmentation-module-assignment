@@ -5,6 +5,7 @@ $(document).ready(function () {
   $("#popup").hide();
 
   $(".showpopup").click(function () {
+    document.querySelector(".main_content").scrollTop = 0;
     $('#hider').removeClass("hidden");
     $('#popup').removeClass("hidden");
     $("body").addClass("modal-open");
@@ -75,12 +76,6 @@ function getSegment() {
 
 /////////// Control button select
 
-  var seg_select_btn = document.querySelectorAll(".control_btn_select") || "";
-  for (var i = 0; i < seg_select_btn.length; i++){
-    var btn = seg_select_btn[i];
-    bindSelectEvent(btn);
-  }
-
   function bindSelectEvent(btn) {
     btn.addEventListener('click', function() {
       if(this.parentNode.querySelector(".selected_seg")){
@@ -92,6 +87,54 @@ function getSegment() {
         this.parentNode.parentNode.className += " seg_selected";
       }
     });
+  }
+
+/////////// control btn edit
+
+  function bindEditEvent(btn) {
+    btn.addEventListener('click', function(event) {
+      var segment = event.target.parentNode.parentNode.querySelector(".seg_wrapper");
+      var name = segment.childNodes[0].textContent;
+      var filePath = segment.childNodes[1].textContent.substring(12);
+      var location = segment.childNodes[2].textContent.substring(11).split(", ");
+      var device = segment.childNodes[3].textContent.substring(14).split(", ");
+      var os = segment.childNodes[4].textContent.substring(12).split(", ");
+      var browser = segment.childNodes[5].textContent.substring(10).split(", ");
+      var visitDay = segment.childNodes[6].textContent.substring(12).split(", ");
+      var visitorType = segment.childNodes[7].textContent.substring(15);
+      document.querySelector(".seg_name").value = name;
+      document.querySelector(".file_path").value = filePath;
+      bindEditHelper(".countries", location);
+      bindEditHelper(".device", device);
+      bindEditHelper(".device_os", os);
+      bindEditHelper(".device_browser", browser);
+      bindEditHelper(".visit_day", visitDay);
+      remActRad();
+      document.querySelector("#"+visitorType).className = "radBtn active_rad";
+      $(".showpopup").click();
+    });
+  }
+
+  function bindEditHelper(classes, btns) {
+      console.log(classes, document.querySelector(classes));
+      var select = document.querySelector(classes);
+      btns.forEach(function(btn) {
+        Array.prototype.forEach.call(select.options, function(opt) {
+          if(opt.value === btn){
+            opt.disabled = true;
+            var selected_btn = document.createElement("button");
+            selected_btn.className = "selected_opt";
+            var span = document.createElement('span');
+            span.className = "glyphicon glyphicon-remove";
+            selected_btn.textContent = btn;
+            selected_btn.appendChild(span);
+            selected_btn.onclick = remove;
+            var selected_area_class = classes + "_selected.selected_opt_area";
+            var selected_opt_area = document.querySelector(selected_area_class);
+            selected_opt_area.appendChild(selected_btn);
+          }
+        });
+      });
   }
 
 ////////// Modal Select Box
@@ -152,6 +195,7 @@ function getSegment() {
   function addSegment(segment) {
     var section = segment;
     bindSelectEvent(section.querySelector(".control_btn_select"));
+    bindEditEvent(section.querySelector(".control_btn_edit"));
     sections.appendChild(section);
     empty_sect.className = "empty_sect hidden"
   }
@@ -224,7 +268,7 @@ function getSegment() {
     removeAllChild(document.querySelector(".visit_day_selected.selected_opt_area"));
     removeSelectedOptions();
     remActRad();
-    document.querySelector("#both_rad").className = "radBtn active_rad";
+    document.querySelector("#Both").className = "radBtn active_rad";
   }
 
   function removeAllChild(node) {
