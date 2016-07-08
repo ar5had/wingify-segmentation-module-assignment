@@ -1,8 +1,20 @@
 
 $(document).ready(function () {
 
+  /********** variable declarations ***********/
+
+  var selects = document.querySelectorAll("select");
+  var editPopup = false, editSegment = null;
+  var radBtn = document.querySelectorAll(".radBtn");
+  var empty_sect = document.querySelector(".empty_sect");
+  var sections = document.querySelector(".sections");
+
+  /********** hiding modal **********/
+
   $("#hider").hide();
   $("#popup").hide();
+
+  /********** show modal **********/
 
   $(".showpopup").click(function () {
     document.querySelector(".main_content").scrollTop = 0;
@@ -12,6 +24,8 @@ $(document).ready(function () {
     $("#hider").fadeIn(400);
     $('#popup').fadeIn(400);
   });
+
+  /********** close modal **********/
 
   $(".buttonClose").click(function(event) {
     if(bindSelections()){
@@ -27,7 +41,7 @@ $(document).ready(function () {
     }
   });
 
-  var editPopup = false, editSegment = null;
+  /********** close modal but dont save selections **********/
 
   $(".buttonClosens").click(function () {
     $("body").removeClass("modal-open");
@@ -38,24 +52,22 @@ $(document).ready(function () {
     }, 350);
   });
 
-/////// error msg popup button
+  /********** error message popup settings **********/
 
   $("#ok_btn").click(function () {
     $('#msg_wrapper').fadeOut(200);
   });
 
+  /********** segment body construction **********/
 
-/////////// Segment Construction
-function getSegment() {
-  var segment = document.createElement("section");
-  segment.className = "segment_sect";
-  segment.innerHTML = "<div class='control_btns'><button type='button' name='button' class='control_btn_select'></button><button type='button' name='button' class='control_btn_edit'><span class='glyphicon glyphicon-cog'></span></button></div><div class='seg_wrapper'><h3 id='seg_name' class='col-xs-12'></h3><p id='file_path' class='col-xs-12 col-sm-6'><span id='fp' class='glyphicon glyphicon-link'></span> File path: <span id='fp_value'></span></p><p id='location' class='col-xs-12 col-sm-6'><span id='loc' class='glyphicon glyphicon-map-marker'></span> Location: <span id='loc_value'></span></p><p id='device_typ' class='col-xs-12 col-sm-6'><span id='dt' class='glyphicon glyphicon-phone'></span> Device type: <span id='dt_value'></span></p><p id='device_os' class='col-xs-12 col-sm-6'><span id='do' class='glyphicon glyphicon-list-alt'></span> Device OS: <span id='do_value'></span></p><p id='device_brow' class='col-xs-12 col-sm-6'><span id='db' class='glyphicon glyphicon-globe'></span> Browser: <span id='db_value'></span></p><p id='visit_day' class='col-xs-12 col-sm-6'><span id='vd' class='glyphicon glyphicon-calendar'></span> Visit day: <span id='vd_value'></span></p><p id='visitor_type' class='col-xs-12 col-sm-6'><span id='vt' class='glyphicon glyphicon-user'></span> Visitor type: <span id='vt_value'></span></p></div>";
-  return segment;
-}
+  function getSegment() {
+    var segment = document.createElement("section");
+    segment.className = "segment_sect";
+    segment.innerHTML = "<div class='control_btns'><button type='button' name='button' class='control_btn_select'></button><button type='button' name='button' class='control_btn_edit'><span class='glyphicon glyphicon-cog'></span></button></div><div class='seg_wrapper'><h3 id='seg_name' class='col-xs-12'></h3><p id='file_path' class='col-xs-12 col-sm-6'><span id='fp' class='glyphicon glyphicon-link'></span> File path: <span id='fp_value'></span></p><p id='location' class='col-xs-12 col-sm-6'><span id='loc' class='glyphicon glyphicon-map-marker'></span> Location: <span id='loc_value'></span></p><p id='device_typ' class='col-xs-12 col-sm-6'><span id='dt' class='glyphicon glyphicon-phone'></span> Device type: <span id='dt_value'></span></p><p id='device_os' class='col-xs-12 col-sm-6'><span id='do' class='glyphicon glyphicon-list-alt'></span> Device OS: <span id='do_value'></span></p><p id='device_brow' class='col-xs-12 col-sm-6'><span id='db' class='glyphicon glyphicon-globe'></span> Browser: <span id='db_value'></span></p><p id='visit_day' class='col-xs-12 col-sm-6'><span id='vd' class='glyphicon glyphicon-calendar'></span> Visit day: <span id='vd_value'></span></p><p id='visitor_type' class='col-xs-12 col-sm-6'><span id='vt' class='glyphicon glyphicon-user'></span> Visitor type: <span id='vt_value'></span></p></div>";
+    return segment;
+  }
 
-////////// Modal Radio buttons
-
-  var radBtn = document.querySelectorAll(".radBtn");
+  /********** modal radio buttons settings **********/
 
   function remActRad() {
     var act_rad = document.querySelector(".active_rad") || "";
@@ -76,7 +88,7 @@ function getSegment() {
     });
   }
 
-/////////// Control button select
+  /********** segment seclecting control button settings **********/
 
   function bindSelectEvent(btn) {
     btn.addEventListener('click', function() {
@@ -91,7 +103,7 @@ function getSegment() {
     });
   }
 
-/////////// control btn edit
+  /********** segment editing control button settings **********/
 
   function bindEditEvent(btn) {
     btn.addEventListener('click', function(event) {
@@ -140,33 +152,30 @@ function getSegment() {
       });
   }
 
-////////// Modal Select Box
-    var selects = document.querySelectorAll("select");
+  /********** modal select box settings **********/
 
-    Array.prototype.forEach.call(selects, function(select) {
-
-      select.addEventListener("change", function() {
-        var name = select.name;
-        var options = select.options;
-        for(var i = 0; i < options.length; i++) {
-          if(options[i].selected) {
-            var selected_btn = document.createElement("button");
-            selected_btn.className = "selected_opt";
-            var span = document.createElement('span');
-            span.className = "glyphicon glyphicon-remove";
-            selected_btn.textContent = options[i].value;
-            selected_btn.appendChild(span);
-            selected_btn.onclick = remove;
-            var selected_area_class = "." + name + "_selected.selected_opt_area";
-            var selected_opt_area = document.querySelector(selected_area_class);
-            selected_opt_area.appendChild(selected_btn);
-            options[i].disabled = true;
-          }
+  Array.prototype.forEach.call(selects, function(select) {
+    select.addEventListener("change", function() {
+      var name = select.name;
+      var options = select.options;
+      for(var i = 0; i < options.length; i++) {
+        if(options[i].selected) {
+          var selected_btn = document.createElement("button");
+          selected_btn.className = "selected_opt";
+          var span = document.createElement('span');
+          span.className = "glyphicon glyphicon-remove";
+          selected_btn.textContent = options[i].value;
+          selected_btn.appendChild(span);
+          selected_btn.onclick = remove;
+          var selected_area_class = "." + name + "_selected.selected_opt_area";
+          var selected_opt_area = document.querySelector(selected_area_class);
+          selected_opt_area.appendChild(selected_btn);
+          options[i].disabled = true;
         }
-        options[0].selected = true;
-      });
-
+      }
+      options[0].selected = true;
     });
+  });
 
   function remove() {
     var text = this.textContent;
@@ -178,8 +187,8 @@ function getSegment() {
     this.parentNode.removeChild(this);
   }
 
-/////// remove segment button
-  var empty_sect = document.querySelector(".empty_sect");
+  /********** remove segment settings **********/
+
   $(".removeSegment").click(function(){
     removeSegment();
   });
@@ -193,8 +202,8 @@ function getSegment() {
       empty_sect.className = "empty_sect";
   }
 
-//////// add segment button
-  var sections = document.querySelector(".sections");
+  /********** add segment settings **********/
+
   function addSegment(segment) {
     var section = segment;
     bindSelectEvent(section.querySelector(".control_btn_select"));
@@ -203,7 +212,7 @@ function getSegment() {
     empty_sect.className = "empty_sect hidden"
   }
 
-///////// bind modal selections with segments
+  /********** binding modal selections with segments **********/
 
   function bindSelections() {
     var segment = editPopup ? editSegment : getSegment();
@@ -263,7 +272,7 @@ function getSegment() {
   }
 
 
-//////// refresh Modal function
+  /********** refresh modal function for clearing out selections**********/
 
   function refreshModal() {
     editPopup = false;
