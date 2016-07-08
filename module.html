@@ -96,7 +96,7 @@
               <div class="col-xs-12">
                 <h3>Device type</h3>
                 <div class="dropdown">
-                  <select class="device_type" name="device">
+                  <select class="device" name="device">
                     <option value="" disabled selected>Select device</option>
                     <option value="All">All</option>
                     <option value="Computer">Computer</option>
@@ -166,18 +166,18 @@
               </div>
               <div class="col-xs-12">
                 <h3 class="visitor">Visitor</h3>
-                <div class="radBtn active_rad" data-val="Both" id="both_rad">
+                <div class="radBtn active_rad" data-val="Both" id="Both">
                   <label for="rad1">Both
                       <span class="rad_info">Targets both returning and new users</span>
                   </label>
                 </div>
-                <div class="radBtn" data-val="New">
+                <div class="radBtn" data-val="New" id="New">
                   <label for="rad2">New
                       <span class="rad_info">Targets only those users who are visiting for the first time</span>
                   </label>
 
                 </div>
-                <div class="radBtn" data-val="Returning">
+                <div class="radBtn" data-val="Returning" id="Returning">
                   <label for="rad3">Returning
                     <span class="rad_info">Targets users that have visited before</span>
                   </label>
