@@ -310,8 +310,8 @@ section.segment_sect {
   padding: 0;
   left: 10px;
   background: none;
-  border-radius: none;
   border: none;
+  border-radius: 0px;
 }
 
 .selected_seg::before, .control_btn_select::before {

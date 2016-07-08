@@ -116,7 +116,6 @@ function getSegment() {
   }
 
   function bindEditHelper(classes, btns) {
-      console.log(classes, document.querySelector(classes));
       var select = document.querySelector(classes);
       btns.forEach(function(btn) {
         Array.prototype.forEach.call(select.options, function(opt) {
