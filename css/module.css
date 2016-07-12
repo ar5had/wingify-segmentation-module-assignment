@@ -378,7 +378,7 @@ section.segment_sect {
   font-size: 16px;
   letter-spacing: 1px;
   word-spacing: 3px;
-  padding: 0;
+  padding: 0 10px 0 0;
   word-wrap: break-word;
   overflow: hidden;
 }
