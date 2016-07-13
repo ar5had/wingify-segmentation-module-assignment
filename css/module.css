@@ -760,3 +760,21 @@ button.col-xs-6:first-child {
 h3.visitor {
   margin-bottom: 15px;
 }
+
+.selectionTypes {
+  padding-left: 0;
+}
+
+.selectionTypes::before {
+  right: 27px;
+}
+
+.selections {
+  padding: 0;
+}
+
+@media (min-width: @screen-xs-max) {
+  .selectionTypes {
+    padding: 0;
+  }
+}
