@@ -773,6 +773,47 @@ h3.visitor {
   padding: 0;
 }
 
+.selectionConditions {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.selectionHeading, .selectionConditions {
+  padding: 0;
+}
+
+.andCondition, .orCondition {
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  width: 50px;
+  display: inline-block;
+  line-height: 2;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.andCondition:focus, .orCondition:focus {
+  padding: 0;
+}
+
+.orCondition, .andCondition {
+  background: #e4e4e4;
+  color: #3e3e3e;
+  border-radius: 0 20px 20px 0;
+}
+
+.andCondition {
+  border-radius: 20px 0px 0px 20px;
+}
+
+.actCondition {
+  background: #3e3e3e;
+  color: #fff;
+}
+
 @media (max-width: 540px) {
   .selectionTypes {
     padding: 0;

@@ -3,12 +3,13 @@ $(document).ready(function () {
 
   /********** variable declarations ***********/
 
-  var selects = document.querySelectorAll("select");
+  var selects = document.querySelectorAll("select.selectionVals");
   var editPopup = false, editSegment = null;
   var radBtn = document.querySelectorAll(".radBtn");
   var empty_sect = document.querySelector(".empty_sect");
   var sections = document.querySelector(".sections");
-
+  var selectType = document.querySelectorAll("select.selectionType");
+  var conditionBtns = document.querySelectorAll(".conditions");
   /********** hiding modal **********/
 
   $("#hider").hide();
@@ -286,6 +287,7 @@ $(document).ready(function () {
     removeAllChild(document.querySelector(".device_browser_selected.selected_opt_area"));
     removeAllChild(document.querySelector(".visit_day_selected.selected_opt_area"));
     removeSelectedOptions();
+    resetSelectTypes();
     remActRad();
     document.querySelector("#Both").className = "radBtn active_rad";
   }
@@ -306,5 +308,21 @@ $(document).ready(function () {
       }
     });
   }
+
+  function resetSelectTypes() {
+    Array.prototype.forEach.call(selectType, function(select) {
+      select.options[0].selected = true;
+    });
+  }
+
+
+  /**********change condition function for AND/OR condions while selecting segments**********/
+
+  Array.prototype.forEach.call(conditionBtns, function(actCond) {
+    actCond.addEventListener("click", function() {
+      document.querySelector(".actCondition").className = "conditions " + document.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
+      this.className = "conditions " + this.getAttribute("data-condition") + "Condition actCondition";
+    });
+  });
 
 });
