@@ -179,7 +179,7 @@ $(document).ready(function () {
 
   function remove() {
     var text = this.textContent;
-    var select = this.parentNode.parentNode.querySelector("select");
+    var select = this.parentNode.parentNode.querySelectorAll("select")[1];
     Array.prototype.forEach.call(select.options, function(opt) {
       if(opt.value === text)
         opt.disabled = false;
