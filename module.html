@@ -72,7 +72,13 @@
               </div>
               <div class="col-xs-12">
                 <h3>Country</h3>
-                <div class="dropdown">
+                <div class="col-xs-3 selectionTypes">
+                  <select class="selectionType" name="selectionType">
+                    <option value="Contains">Contains</option>
+                    <option value="Does not contains">Does not contains</option>
+                  </select>
+                </div>
+                <div class="col-xs-9 selections">
                   <select class="countries" name="countries">
                     <option value="" disabled selected>Select country</option>
                     <option value="All">All</option>
