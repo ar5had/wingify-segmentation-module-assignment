@@ -503,6 +503,7 @@ p {
 
 .wrapper > div {
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .top_content {
@@ -525,10 +526,10 @@ p {
 }
 
 .main_content {
-  max-height: 70vh;
+  height: 70vh;
   margin: 0;
   overflow-y: scroll;
-  padding: 0px 10px;
+  position: relative;
 }
 
 h2 {
@@ -868,12 +869,12 @@ h3.orselection::after {
   padding: 0;
 }
 
-.tabs {
+.tabBtns {
   float: right;
   margin: 0 !important;
 }
 
-.tabs > h2 {
+.tabBtns > h2 {
   display: inline;
   line-height: 3.5;
   text-transform: inherit;
@@ -886,4 +887,18 @@ h3.orselection::after {
 
 .deactiveTab {
   color: #c3c3c3 !important;
+}
+
+.tab {
+  position: absolute;
+  padding: 0 10px;
+}
+
+.tab > div {
+  overflow: auto;
+  margin-bottom: 30px;
+}
+
+.basicTab {
+  left: 0;
 }
