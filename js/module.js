@@ -454,26 +454,25 @@ $(document).ready(function () {
   }
 
   function moveLeftBasicTab() {
+    $(".advancedTab").removeClass('hidden');
     var val = "-" + Number($(".basicTab").width()+10) + "px";
-    //$(".advancedTab").removeClass('hidden');
     $(".main_content").css("overflow-y", "hidden");
     $(".basicTab").animate({left:val}, {duration: 200, easing: "linear", queue: false});
     $(".advancedTab").animate({left:"0"}, {duration: 200, easing: "linear", queue: false});
-    // setTimeout( function() {
-    //   $(".basicTab").addClass("hidden");
-    // }, 310);
+    setTimeout( function() {
+       $(".basicTab").addClass("hidden");
+    }, 300);
   }
 
   function moveRightBasicTab() {
+    $(".basicTab").removeClass('hidden');
     var val = $(".basicTab").width() + "px";
-    console.log(val);
-    //$(".basicTab").removeClass('hidden');
     $(".basicTab").animate({left:"0"}, {duration: 200, easing: "linear", queue: false});
-    $(".advancedTab").animate({left:val}, {duration: 200, easing: "linear",queue: false});
+    $(".advancedTab").animate({left:val}, {duration: 200, easing: "linear", queue: false});
     $(".main_content").css("overflow-y", "auto");
-    // setTimeout( function() {
-    //   $(".advancedTab").addClass("hidden");
-    // }, 210);
+    setTimeout( function() {
+       $(".advancedTab").addClass("hidden");
+    }, 300);
   }
 
 });
