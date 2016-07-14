@@ -498,7 +498,6 @@ p {
 
 .wrapper > div > div {
   overflow: auto;
-  margin-bottom: 30px;
 }
 
 .wrapper > div {
@@ -793,10 +792,10 @@ h3.visitor {
   width: 50px;
   display: inline-block;
   line-height: 2;
-  -webkit-transition: all .1s ease-in-out;
-  -moz-transition: all .1s ease-in-out;
-  -o-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: background .1s ease-in-out;
+  -moz-transition: background .1s ease-in-out;
+  -o-transition: background .1s ease-in-out;
+  transition: background .1s ease-in-out;
 }
 
 .andCondition:focus, .orCondition:focus {
@@ -905,4 +904,13 @@ h3.orselection::after {
 
 .basicTab {
   left: 0;
+  width: 100%;
+}
+
+.advancedTab {
+  width: 100%;
+}
+
+.scWrapper{
+  padding-left: 0;
 }

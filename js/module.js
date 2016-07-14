@@ -29,6 +29,7 @@ $(document).ready(function () {
     $("#hider").fadeIn(400);
     $('#popup').fadeIn(400);
     document.querySelector(".main_content").scrollTop = 0;
+    initializeTabs();
   });
 
   /********** close modal **********/
@@ -446,5 +447,33 @@ $(document).ready(function () {
     }
   });
 
+  function initializeTabs() {
+    var val = $(".basicTab").width() + "px";
+    console.log($(".basicTab").width() + "px");
+    $(".advancedTab").css('left', val);
+  }
+
+  function moveLeftBasicTab() {
+    var val = "-" + Number($(".basicTab").width()+10) + "px";
+    //$(".advancedTab").removeClass('hidden');
+    $(".main_content").css("overflow-y", "hidden");
+    $(".basicTab").animate({left:val}, {duration: 200, easing: "linear", queue: false});
+    $(".advancedTab").animate({left:"0"}, {duration: 200, easing: "linear", queue: false});
+    // setTimeout( function() {
+    //   $(".basicTab").addClass("hidden");
+    // }, 310);
+  }
+
+  function moveRightBasicTab() {
+    var val = $(".basicTab").width() + "px";
+    console.log(val);
+    //$(".basicTab").removeClass('hidden');
+    $(".basicTab").animate({left:"0"}, {duration: 200, easing: "linear", queue: false});
+    $(".advancedTab").animate({left:val}, {duration: 200, easing: "linear",queue: false});
+    $(".main_content").css("overflow-y", "auto");
+    // setTimeout( function() {
+    //   $(".advancedTab").addClass("hidden");
+    // }, 210);
+  }
 
 });
