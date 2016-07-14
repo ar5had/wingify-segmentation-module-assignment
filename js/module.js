@@ -10,20 +10,25 @@ $(document).ready(function () {
   var sections = document.querySelector(".sections");
   var selectType = document.querySelectorAll("select.selectionType");
   var conditionBtns = document.querySelectorAll(".conditions");
+
   /********** hiding modal **********/
 
   $("#hider").hide();
   $("#popup").hide();
 
+  /********** refresh modal on startup so that it get rids of all data entered before (useful when user refreshes browser)**********/
+
+  refreshModal();
+
   /********** show modal **********/
 
   $(".showpopup").click(function () {
-    document.querySelector(".main_content").scrollTop = 0;
     $('#hider').removeClass("hidden");
     $('#popup').removeClass("hidden");
     $("body").addClass("modal-open");
     $("#hider").fadeIn(400);
     $('#popup').fadeIn(400);
+    document.querySelector(".main_content").scrollTop = 0;
   });
 
   /********** close modal **********/
@@ -241,11 +246,11 @@ $(document).ready(function () {
     var segment = editPopup ? editSegment : getSegment();
     var name = document.querySelector(".seg_name").value || "";
     var filePath = document.querySelector(".file_path").value || "";
-    var location = getButtonsText(document.querySelector(".countries_selected.selected_opt_area").childNodes) || "All";
-    var device = getButtonsText(document.querySelector(".device_selected.selected_opt_area").childNodes) || "All";
-    var os = getButtonsText(document.querySelector(".device_os_selected.selected_opt_area").childNodes) || "All";
-    var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes) || "All";
-    var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes) || "Anyday";
+    var location = getButtonsText(document.querySelector(".countries_selected.selected_opt_area").childNodes);
+    var device = getButtonsText(document.querySelector(".device_selected.selected_opt_area").childNodes);
+    var os = getButtonsText(document.querySelector(".device_os_selected.selected_opt_area").childNodes);
+    var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes);
+    var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes);
     var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
     if(name === "" || filePath === ""){
       showWarning("Fields of the basic info are required.");
@@ -254,39 +259,49 @@ $(document).ready(function () {
       else {
       if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
         if(location === 'All') {
-          showWarning("Atleast one of the country should be selected.");
+          showWarning("All countries can't be excluded.");
           return false;
         }
-        location = "except " + location;
+        location = location ? ("except " + location) : "";
+        if(!location) document.querySelector(".countriesSelectionType").options[0].selected = true;
       }
       if(checkSelectionType(document.querySelector(".deviceSelectionType"))) {
-        if(location === 'All') {
-          showWarning("Atleast one of the device should be selected.");
+        if(device === 'All') {
+          showWarning("All devices can't be excluded.");
           return false;
         }
-        device = "except " + device;
+        device =  device ? ("except " + device) : "";
+        if(!device) document.querySelector(".deviceSelectionType").options[0].selected = true;
       }
       if(checkSelectionType(document.querySelector(".osSelectionType"))) {
-        if(location === 'All') {
-          showWarning("Atleast one of the OS should be selected.");
+        if(os === 'All') {
+          showWarning("All OSs can't be excluded.");
           return false;
         }
-        os = "except " + os;
+        os =  device ? ("except " + os) : "";
+        if(!os) document.querySelector(".osSelectionType").options[0].selected = true;
       }
       if(checkSelectionType(document.querySelector(".browserSelectionType"))) {
         if(location === 'All') {
-          showWarning("Atleast one of the browser should be selected.");
+          showWarning("All browsers can't be excluded.");
           return false;
         }
-        browser = "except " + browser;
+        browser = browser ? ("except " + browser) : "";
+        if(!browser) document.querySelector(".browserSelectionType").options[0].selected = true;
       }
       if(checkSelectionType(document.querySelector(".visitDaySelectionType"))) {
-        if(location === 'Anyday') {
-          showWarning("Atleast one of the day should be selected.");
+        if(visitDay === 'Anyday') {
+          showWarning("All days can't be excluded.");
           return false;
         }
-        visitDay = "except " + visitDay;
+        visitDay = visitDay ? ("except " + visitDay) : "";
+        if(!visitDay) document.querySelector(".visitDaySelectionType").options[0].selected = true;
       }
+      location = location || "All";
+      device = device || "All";
+      browser = browser || "All";
+      os = os || "All";
+      visitDay = visitDay || "Anyday";
       segment.querySelector("#seg_name").textContent = name;
       segment.querySelector("#fp_value").textContent = filePath;
       segment.querySelector("#loc_value").textContent = location;
