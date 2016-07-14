@@ -883,6 +883,10 @@ h3.orselection::after {
   font-weight: 400;
   font-size: 15px;
   cursor: pointer;
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
 }
 
 .deactiveTab {

@@ -431,8 +431,20 @@ $(document).ready(function () {
   document.querySelector(".removeSegment").disabled = false;
   document.querySelector(".rem_segment").disabled = false;
 
-  /************* binding conditions selected by user *************/
+  /************* tab btns setting *************/
 
+  $(".tabBtns").click(function() {
+    if ( $(".deactiveTab").hasClass("basicTabBtn") ) {
+      $(".basicTabBtn").removeClass("deactiveTab");
+      $(".advancedTabBtn").addClass("deactiveTab");
+      moveRightBasicTab();
+    }
+    else {
+      $(".advancedTabBtn").removeClass("deactiveTab");
+      $(".basicTabBtn").addClass("deactiveTab");
+      moveLeftBasicTab();
+    }
+  });
 
 
 });
