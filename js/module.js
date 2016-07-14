@@ -216,6 +216,7 @@ $(document).ready(function () {
   /********** binding modal selections with segments **********/
 
   function bindSelections() {
+    console.log("bindSelections Called");
     var segment = editPopup ? editSegment : getSegment();
     var name = document.querySelector(".seg_name").value || "";
     var filePath = document.querySelector(".file_path").value || "";
@@ -225,12 +226,47 @@ $(document).ready(function () {
     var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes) || "All";
     var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes) || "Anyday";
     var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
+    console.log(location, device, os, browser, visitDay);
     if(name === "" || filePath === ""){
-      $('#msg_wrapper').removeClass("hidden");
-      $('#msg_wrapper').fadeIn(200);
+      showWarning("Fields of the basic info are required.");
       return false;
     }
       else {
+      if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
+        if(location === 'All') {
+          showWarning("Atleast one of the country should be selected.");
+          return false;
+        }
+        location = "except " + location;
+      }
+      if(checkSelectionType(document.querySelector(".deviceSelectionType"))) {
+        if(location === 'All') {
+          showWarning("Atleast one of the device should be selected.");
+          return false;
+        }
+        device = "except " + device;
+      }
+      if(checkSelectionType(document.querySelector(".osSelectionType"))) {
+        if(location === 'All') {
+          showWarning("Atleast one of the OS should be selected.");
+          return false;
+        }
+        os = "except " + os;
+      }
+      if(checkSelectionType(document.querySelector(".browserSelectionType"))) {
+        if(location === 'All') {
+          showWarning("Atleast one of the browser should be selected.");
+          return false;
+        }
+        browser = "except " + browser;
+      }
+      if(checkSelectionType(document.querySelector(".visitDaySelectionType"))) {
+        if(location === 'Anyday') {
+          showWarning("Atleast one of the day should be selected.");
+          return false;
+        }
+        visitDay = "except " + visitDay;
+      }
       segment.querySelector("#seg_name").textContent = name;
       segment.querySelector("#fp_value").textContent = filePath;
       segment.querySelector("#loc_value").textContent = location;
@@ -247,6 +283,13 @@ $(document).ready(function () {
       }
       return true;
     }
+  }
+
+  function showWarning(text) {
+    if(text)
+      document.querySelector("#error_msg").textContent = text;
+    $('#msg_wrapper').removeClass("hidden");
+    $('#msg_wrapper').fadeIn(200);
   }
 
   function getButtonsText(btns) {
@@ -272,6 +315,10 @@ $(document).ready(function () {
     return string;
   }
 
+  function checkSelectionType(elem) {
+    console.log(elem.options, elem.options[1].selected);
+    return elem.options[1].selected;
+  }
 
   /********** refresh modal function for clearing out selections**********/
 
@@ -346,4 +393,8 @@ $(document).ready(function () {
       elem.querySelector(".conditionSelected").className = "conditionSelected";
     elem.querySelector(".conditionSelected").textContent = val;
   }
+
+  document.querySelector(".removeSegment").disabled = false;
+  document.querySelector(".rem_segment").disabled = false;
+
 });
