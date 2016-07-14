@@ -90,9 +90,13 @@ button.add_segment:hover, .add:hover {
 section {
   background: #fff;
   border-top: none;
-  padding: 30px;
+  padding: 15px 20px 10px 20px;
   margin: 10px auto;
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+section:first-child {
+  padding: 30px;
 }
 
 .sections > section:last-child{
@@ -796,13 +800,15 @@ h3.visitor {
 }
 
 .andCondition:focus, .orCondition:focus {
-  padding: 0;
+  padding: 1px 6px;
 }
 
 .orCondition, .andCondition {
   background: #e4e4e4;
   color: #3e3e3e;
   border-radius: 0 20px 20px 0;
+  outline: none;
+  border: none;
 }
 
 .andCondition {
