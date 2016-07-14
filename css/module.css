@@ -829,3 +829,32 @@ h3.visitor {
     width: 100%;
   }
 }
+
+.segHeader.extra-mar{
+  padding-top: 10px;
+}
+
+.conditionDisplay {
+  padding: 0;
+}
+
+.conditionSelected{
+  position: relative;
+  color: #bbb;
+  font-family: 'Source Sans Pro';
+  letter-spacing: 1px;
+}
+
+h3.conditionSelected:after {
+  content:"";
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  right: 0;
+  height: 8px;
+  border-top: 1px solid #ddd;
+}
+
+h3.orselection::after {
+  left: 20px;
+}

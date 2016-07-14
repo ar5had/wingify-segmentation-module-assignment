@@ -320,9 +320,17 @@ $(document).ready(function () {
 
   Array.prototype.forEach.call(conditionBtns, function(actCond) {
     actCond.addEventListener("click", function() {
-      document.querySelector(".actCondition").className = "conditions " + document.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
+      this.parentNode.querySelector(".actCondition").className = "conditions " + this.parentNode.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
       this.className = "conditions " + this.getAttribute("data-condition") + "Condition actCondition";
+      changeCondition(this.parentNode.parentNode.parentNode, this.textContent);
     });
   });
 
+  function changeCondition(elem, val) {
+    if(val === "OR")
+      elem.querySelector(".conditionSelected").className = "conditionSelected orselection";
+    else
+      elem.querySelector(".conditionSelected").className = "conditionSelected";
+    elem.querySelector(".conditionSelected").textContent = val;
+  }
 });
