@@ -104,19 +104,41 @@ $(document).ready(function () {
     });
   }
 
-  /********** segment editing control button settings **********/
+  /********** binding modal with segment. Segment editing control button settings **********/
 
   function bindEditEvent(btn) {
     btn.addEventListener('click', function(event) {
+      var locationst, devicest, osst, browserst, visitDayst, location, device, os, browser, visitDay, visitorType;
       var segment = event.target.parentNode.parentNode.querySelector(".seg_wrapper");
       var name = segment.childNodes[0].textContent;
       var filePath = segment.childNodes[1].textContent.substring(12);
-      var location = segment.childNodes[2].textContent.substring(11).split(", ");
-      var device = segment.childNodes[3].textContent.substring(14).split(", ");
-      var os = segment.childNodes[4].textContent.substring(12).split(", ");
-      var browser = segment.childNodes[5].textContent.substring(10).split(", ");
-      var visitDay = segment.childNodes[6].textContent.substring(12).split(", ");
-      var visitorType = segment.childNodes[7].textContent.substring(15);
+      if (segment.childNodes[2].textContent.substring(11, 17) === "except")
+        locationst = true;
+      location = locationst ? segment.childNodes[2].textContent.substring(18).split(", ") : segment.childNodes[2].textContent.substring(11).split(", ");
+      if (segment.childNodes[3].textContent.substring(14, 20) === "except")
+        devicest = true;
+      device = devicest ? segment.childNodes[3].textContent.substring(21).split(", ") : segment.childNodes[3].textContent.substring(14).split(", ");
+      if (segment.childNodes[4].textContent.substring(12, 18) === "except")
+        osst = true;
+      os = osst ? segment.childNodes[4].textContent.substring(19).split(", ") : segment.childNodes[4].textContent.substring(12).split(", ");
+      if (segment.childNodes[5].textContent.substring(10, 16) === "except")
+        browserst = true;
+      browser = browserst ? segment.childNodes[5].textContent.substring(17).split(", ") : segment.childNodes[5].textContent.substring(10).split(", ");
+      if (segment.childNodes[6].textContent.substring(12, 18) === "except")
+        visitDayst = true;
+      visitDay = visitDayst ? segment.childNodes[6].textContent.substring(19).split(", ") : segment.childNodes[6].textContent.substring(12).split(", ");
+      visitorType = segment.childNodes[7].textContent.substring(15);
+      if(visitDayst)
+        document.querySelector(".visitDaySelectionType").options[1].selected = true;
+      if(locationst)
+        document.querySelector(".countriesSelectionType").options[1].selected = true;
+      if(devicest)
+        document.querySelector(".deviceSelectionType").options[1].selected = true;
+      if(browserst)
+        document.querySelector(".browserSelectionType").options[1].selected = true;
+      if(osst)
+        document.querySelector(".osSelectionType").options[1].selected = true;
+
       document.querySelector(".seg_name").value = name;
       document.querySelector(".file_path").value = filePath;
       bindEditHelper(".countries", location);
@@ -216,7 +238,6 @@ $(document).ready(function () {
   /********** binding modal selections with segments **********/
 
   function bindSelections() {
-    console.log("bindSelections Called");
     var segment = editPopup ? editSegment : getSegment();
     var name = document.querySelector(".seg_name").value || "";
     var filePath = document.querySelector(".file_path").value || "";
@@ -226,7 +247,6 @@ $(document).ready(function () {
     var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes) || "All";
     var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes) || "Anyday";
     var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
-    console.log(location, device, os, browser, visitDay);
     if(name === "" || filePath === ""){
       showWarning("Fields of the basic info are required.");
       return false;
@@ -316,7 +336,6 @@ $(document).ready(function () {
   }
 
   function checkSelectionType(elem) {
-    console.log(elem.options, elem.options[1].selected);
     return elem.options[1].selected;
   }
 
