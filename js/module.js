@@ -288,6 +288,7 @@ $(document).ready(function () {
     removeAllChild(document.querySelector(".visit_day_selected.selected_opt_area"));
     removeSelectedOptions();
     resetSelectTypes();
+    resetConditions();
     remActRad();
     document.querySelector("#Both").className = "radBtn active_rad";
   }
@@ -315,6 +316,18 @@ $(document).ready(function () {
     });
   }
 
+  function resetConditions() {
+    Array.prototype.forEach.call(document.querySelectorAll(".andCondition"), function(btn) {
+      btn.className = "conditions andCondition actCondition";
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".orCondition"), function(btn) {
+      btn.className = "conditions orCondition";
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".conditionSelected"), function(conditionDisplay) {
+      conditionDisplay.textContent = "AND";
+      conditionDisplay.className = "conditionSelected";
+    });
+  }
 
   /**********change condition function for AND/OR condions while selecting segments**********/
 
