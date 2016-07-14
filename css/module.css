@@ -514,7 +514,6 @@ p {
   margin: 0;
   line-height: 3.5;
   display: inline;
-  float: left;
 }
 
 .top_content > p {
@@ -836,10 +835,6 @@ h3.visitor {
   }
 }
 
-.segHeader.extra-mar{
-  padding-top: 10px;
-}
-
 .conditionDisplay {
   padding: 0;
 }
@@ -863,4 +858,32 @@ h3.conditionSelected:after {
 
 h3.orselection::after {
   left: 23px;
+}
+
+.top_content_heading {
+  float: left;
+}
+
+.top_content > h2 {
+  padding: 0;
+}
+
+.tabs {
+  float: right;
+  margin: 0 !important;
+}
+
+.tabs > h2 {
+  display: inline;
+  line-height: 3.5;
+  text-transform: inherit;
+  color: #3e3e3e;
+  margin-left: 20px;
+  font-weight: 400;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.deactiveTab {
+  color: #c3c3c3 !important;
 }
