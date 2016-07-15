@@ -372,7 +372,8 @@ $(document).ready(function () {
     remActRad();
     document.querySelector("#Both").className = "radBtn active_rad";
     primaryTabCondition();
-    moveRightBasicTab()
+    moveRightBasicTab();
+    resetAdvancedTab();
   }
 
   function removeAllChild(node) {
@@ -430,14 +431,17 @@ $(document).ready(function () {
 
   /************* tab btns setting *************/
 
-  $(".tabBtns").click(function(event) {
-    if ( $(".deactiveTab").hasClass("basicTabBtn") ) {
+  $(".basicTabBtn").click(function(event) {
+    if ( $(".basicTabBtn").hasClass("deactiveTab") ) {
       primaryTabCondition();
       moveRightBasicTab();
     }
-    else {
-      $(".advancedTabBtn").removeClass("deactiveTab");
+  });
+
+  $(".advancedTabBtn").click(function(event) {
+    if ( $(".advancedTabBtn").hasClass("deactiveTab") ) {
       $(".basicTabBtn").addClass("deactiveTab");
+      $(".advancedTabBtn").removeClass("deactiveTab");
       moveLeftBasicTab();
     }
   });
@@ -592,6 +596,17 @@ $(document).ready(function () {
     if(document.querySelectorAll(".conditionModule").length > 1)
       btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode);
 
+    if(document.querySelectorAll(".conditionModule").length === 1)
+      document.querySelector(".andCondition").className = "conditions andCondition";
+
+  }
+
+  function resetAdvancedTab() {
+    var cmList = document.querySelectorAll(".conditionModule");
+    for(var i = 1; i < cmList.length; i++ ) {
+      document.querySelector(".conditionsWrapper").removeChild(cmList[i]);
+    }
+    cmList[0].querySelector(".segmentCondition").options[0].selected = true;
   }
 
   /**********************************************************/

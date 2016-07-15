@@ -258,6 +258,10 @@ section.segment_sect {
   .main_wrapper {
     padding: 10px !important;
   }
+
+  .selectionConditions {
+    transform: scale(.9);
+  }
 }
 
 @media screen and (max-width: 290px) {
@@ -990,5 +994,10 @@ h3.orselection::after {
 }
 
 .orselection {
+  margin: 0;
+}
+
+.conditionsInfo {
+  color: #797979;
   margin: 0;
 }
