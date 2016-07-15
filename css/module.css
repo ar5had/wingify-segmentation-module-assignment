@@ -642,7 +642,7 @@ button.selected_opt:hover {
   background: #222;
 }
 
-.dropdown::before {
+.dropdown::before{
   position: absolute;
   top: 17px;
   right: 12px;
@@ -716,7 +716,7 @@ label {
 }
 
 .visitor_info {
-  margin-bottom: 10px !important;
+  margin-bottom: 20px !important;
 }
 
 .fbuttons {
@@ -778,20 +778,21 @@ h3.visitor {
 
 .selectionConditions {
   text-align: right;
-  margin-top: 10px;
+  margin-top: 2px;
 }
 
 .selectionHeading, .selectionConditions {
   padding: 0;
 }
 
-.andCondition, .orCondition {
+.andCondition, .orCondition, .removeCondition {
   font-size: 12px;
   font-weight: 500;
   border: none;
-  width: 50px;
+  width: 40px;
+  line-height: 40px;
+  height: 40px;
   display: inline-block;
-  line-height: 2;
   -webkit-transition: background .1s ease-in-out;
   -moz-transition: background .1s ease-in-out;
   -o-transition: background .1s ease-in-out;
@@ -802,21 +803,35 @@ h3.visitor {
   padding: 1px 6px;
 }
 
-.orCondition, .andCondition {
+.orCondition, .andCondition, .removeCondition {
   background: #e4e4e4;
   color: #3e3e3e;
   border-radius: 0 20px 20px 0;
   outline: none;
   border: none;
+  font-size: 11px;
 }
 
 .andCondition {
+  border-radius: 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.removeCondition {
   border-radius: 20px 0px 0px 20px;
 }
 
+.removeCondition > span {
+  transform: scaleX(1.1);
+  font-size: 9px;
+}
+
+}
+
 .actCondition {
-  background: #3e3e3e;
-  color: #fff;
+  background: #d0d0d0;
+  color: #3e3e3e;
 }
 
 @media (max-width: 540px) {
@@ -841,23 +856,23 @@ h3.visitor {
 
 .conditionSelected{
   position: relative;
-  color: #bbb;
+  color: #797979;
   font-family: 'Source Sans Pro';
   letter-spacing: 1px;
 }
 
-h3.conditionSelected:after {
+h3.conditionSelected.andselection:after {
   content:"";
   position: absolute;
   bottom: 0;
   left: 30px;
   right: 0;
   height: 8px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba(121, 121, 121, 0.57);
 }
 
 h3.orselection::after {
-  left: 23px;
+  border: none;
 }
 
 .top_content_heading {
@@ -902,6 +917,10 @@ h3.orselection::after {
   margin-bottom: 30px;
 }
 
+.advancedTab > div {
+  margin-bottom: 20px;
+}
+
 .basicTab {
   left: 0;
   width: 100%;
@@ -913,4 +932,41 @@ h3.orselection::after {
 
 .scWrapper{
   padding-left: 0;
+  position: relative;
+}
+
+.scWrapper::before{
+  position: absolute;
+  top: 17px;
+  right: 27px;
+  font-size: 9px;
+  color: #3e3e3e;
+  font-family: "Glyphicons Halflings";
+  content: "\e114";
+}
+
+.removeCondition:hover {
+  color: #fff;
+  background: #f0523d;
+}
+
+.selectionConditions > button {
+  -webkit-transition: all .1s ease-in-out;
+  -moz-transition: all .1s ease-in-out;
+  -o-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.actCondition, .actCondition:hover {
+  background: #d0d0d0;
+  border-color: #d0d0d0;
+  color: #3e3e3e;
+}
+
+.conditionsWrapper {
+  width: 100%;
+}
+
+.firstHeading {
+  margin-top: 15px;
 }

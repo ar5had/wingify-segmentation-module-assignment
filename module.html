@@ -60,7 +60,7 @@
           <div class="main_content">
             <div class="tab basicTab">
               <div class="segment_info" id="start_mc">
-                <div class="col-xs-12">
+                <div class="col-xs-12 firstHeading">
                   <h2>Basic Info*</h2>
                 </div>
                 <div class="col-xs-12">
@@ -247,11 +247,11 @@
               </div>
             </div>
             <div class="tab advancedTab">
-              <div class="segment_info">
-                <div class="col-xs-12">
-                  <h2>Conditions</h2>
-                </div>
-                <div class="col-xs-12">
+              <div class="col-xs-12 firstHeading">
+                <h2>Conditions</h2>
+              </div>
+              <div class="conditionsWrapper">
+                <div class="col-xs-12 conditionModule">
                   <div class="col-xs-7 scWrapper">
                     <select class="segmentCondition" name="segmentCondition">
                       <option>Location</option>
@@ -263,8 +263,12 @@
                     </select>
                   </div>
                   <div class="col-xs-5 selectionConditions">
-                    <button type="button" name="button" class="conditions andCondition actCondition" data-condition="and">AND</button><!--
+                    <button type="button" name="button" class="removeCondition" data-condition="remove"><span class="glyphicon glyphicon-minus"></span></button><!--
+                  --><button type="button" name="button" class="conditions andCondition" data-condition="and">AND</button><!--
                   --><button type="button" name="button" class="conditions orCondition" data-condition="or">OR</button>
+                  </div>
+                  <div class="conditionDisplay col-xs-12">
+                    <h3 class="conditionSelected"></h3>
                   </div>
                 </div>
               </div>

@@ -9,8 +9,7 @@ $(document).ready(function () {
   var empty_sect = document.querySelector(".empty_sect");
   var sections = document.querySelector(".sections");
   var selectType = document.querySelectorAll("select.selectionType");
-  var conditionBtns = document.querySelectorAll(".conditions");
-
+  var conditionModule = null;
   /********** hiding modal **********/
 
   $("#hider").hide();
@@ -30,6 +29,8 @@ $(document).ready(function () {
     $('#popup').fadeIn(400);
     document.querySelector(".main_content").scrollTop = 0;
     initializeTabs();
+    if(!conditionModule)
+      cloneCondtionModule();
   });
 
   /********** close modal **********/
@@ -373,6 +374,8 @@ $(document).ready(function () {
     resetConditions();
     remActRad();
     document.querySelector("#Both").className = "radBtn active_rad";
+    primaryTabCondition();
+    moveRightBasicTab()
   }
 
   function removeAllChild(node) {
@@ -400,44 +403,22 @@ $(document).ready(function () {
 
   function resetConditions() {
     Array.prototype.forEach.call(document.querySelectorAll(".andCondition"), function(btn) {
-      btn.className = "conditions andCondition actCondition";
+      btn.className = "conditions andCondition";
     });
     Array.prototype.forEach.call(document.querySelectorAll(".orCondition"), function(btn) {
       btn.className = "conditions orCondition";
     });
     Array.prototype.forEach.call(document.querySelectorAll(".conditionSelected"), function(conditionDisplay) {
-      conditionDisplay.textContent = "AND";
+      conditionDisplay.textContent = "";
       conditionDisplay.className = "conditionSelected";
     });
   }
 
-  /**********change condition function for AND/OR condions while selecting segments**********/
-
-  Array.prototype.forEach.call(conditionBtns, function(actCond) {
-    actCond.addEventListener("click", function() {
-      this.parentNode.querySelector(".actCondition").className = "conditions " + this.parentNode.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
-      this.className = "conditions " + this.getAttribute("data-condition") + "Condition actCondition";
-      changeCondition(this.parentNode.parentNode.parentNode, this.textContent);
-    });
-  });
-
-  function changeCondition(elem, val) {
-    if(val === "OR")
-      elem.querySelector(".conditionSelected").className = "conditionSelected orselection";
-    else
-      elem.querySelector(".conditionSelected").className = "conditionSelected";
-    elem.querySelector(".conditionSelected").textContent = val;
-  }
-
-  document.querySelector(".removeSegment").disabled = false;
-  document.querySelector(".rem_segment").disabled = false;
-
   /************* tab btns setting *************/
 
-  $(".tabBtns").click(function() {
+  $(".tabBtns").click(function(event) {
     if ( $(".deactiveTab").hasClass("basicTabBtn") ) {
-      $(".basicTabBtn").removeClass("deactiveTab");
-      $(".advancedTabBtn").addClass("deactiveTab");
+      primaryTabCondition();
       moveRightBasicTab();
     }
     else {
@@ -446,6 +427,11 @@ $(document).ready(function () {
       moveLeftBasicTab();
     }
   });
+
+  function primaryTabCondition() {
+    $(".basicTabBtn").removeClass("deactiveTab");
+    $(".advancedTabBtn").addClass("deactiveTab");
+  }
 
   function initializeTabs() {
     var val = $(".basicTab").width() + "px";
@@ -474,5 +460,54 @@ $(document).ready(function () {
        $(".advancedTab").addClass("hidden");
     }, 300);
   }
+
+  /**********change condition function for AND/OR condions while selecting segments**********/
+
+  function bindConditionSelection() {
+    var removeConditionBtns = document.querySelectorAll(".removeCondition");
+    var conditionBtns = document.querySelectorAll(".conditions");
+
+    Array.prototype.forEach.call(conditionBtns, function(actCond) {
+      actCond.addEventListener("click", function(event) {
+        $(".actCondition").removeClass("actCondition");
+        event.target.className = "conditions actCondition " + event.target.getAttribute("data-condition");
+        this.parentNode.querySelector(".actCondition").className = "conditions " + this.parentNode.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
+        this.className = "conditions " + this.getAttribute("data-condition") + "Condition actCondition";
+        changeCondition(this.parentNode.parentNode, this.textContent);
+      });
+    });
+
+    Array.prototype.forEach.call(removeConditionBtns, function(btn) {
+      btn.addEventListener("click", function(event) {
+        $(".actCondition").removeClass("actCondition");
+        this.parentNode.parentNode.querySelector('.conditionSelected').textContent = "";
+        this.parentNode.parentNode.querySelector('.conditionSelected').className = "conditionSelected";
+      });
+    });
+
+  }
+
+  function changeCondition(elem, val) {
+    console.log("parent is ",elem);
+    if(val === "OR")
+      elem.querySelector(".conditionSelected").className = "conditionSelected orselection";
+    else
+      elem.querySelector(".conditionSelected").className = "conditionSelected andselection";
+    elem.querySelector(".conditionSelected").textContent = val;
+  }
+
+  bindConditionSelection();
+
+  /*************** cloneCondtionModule *******************/
+
+  function cloneCondtionModule() {
+    conditionModule = document.querySelector(".conditionModule").cloneNode(true);
+    console.log(conditionModule);
+  }
+
+  /**********************************************************/
+
+  document.querySelector(".removeSegment").disabled = false;
+  document.querySelector(".rem_segment").disabled = false;
 
 });
