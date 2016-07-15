@@ -918,7 +918,7 @@ h3.orselection::after {
 }
 
 .advancedTab > div {
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .basicTab {
@@ -928,6 +928,11 @@ h3.orselection::after {
 
 .advancedTab {
   width: 100%;
+  height: 100%;
+}
+
+.advancedTab .firstHeading {
+  margin-bottom: 20px;
 }
 
 .scWrapper{
@@ -965,6 +970,14 @@ h3.orselection::after {
 
 .conditionsWrapper {
   width: 100%;
+}
+
+.condtionModule {
+  margin-bottom: 20px;
+}
+
+.conditionDisplay {
+  margin: 10px 0;
 }
 
 .firstHeading {
