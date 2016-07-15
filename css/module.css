@@ -918,7 +918,7 @@ h3.orselection::after {
 }
 
 .advancedTab > div {
-  margin-bottom: 0;
+  margin-bottom: 50px;
 }
 
 .basicTab {
@@ -966,6 +966,7 @@ h3.orselection::after {
   background: #d0d0d0;
   border-color: #d0d0d0;
   color: #3e3e3e;
+  cursor: inherit;
 }
 
 .conditionsWrapper {
@@ -982,4 +983,12 @@ h3.orselection::after {
 
 .firstHeading {
   margin-top: 15px;
+}
+
+.conditionModule:first-child > .conditionDisplay {
+  display: none;
+}
+
+.orselection {
+  margin: 0;
 }

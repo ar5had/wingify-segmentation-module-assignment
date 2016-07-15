@@ -400,7 +400,6 @@ $(document).ready(function () {
 
   function resetConditions(module) {
     var andBtns, orBtns, conditionDisplayer;
-    console.log(module);
     if(module) {
       andBtns = module.querySelector(".andCondition");
       orBtns = module.querySelector(".orCondition");
@@ -492,21 +491,15 @@ $(document).ready(function () {
 
     Array.prototype.forEach.call(conditionBtns, function(actCond) {
       actCond.addEventListener("click", function(event) {
-        if(this.parentNode.querySelector(".actCondition"))
-          this.parentNode.querySelector(".actCondition").className = "conditions " + this.parentNode.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
-        event.target.className = "conditions actCondition " + event.target.getAttribute("data-condition") + "Condition";
-        this.parentNode.querySelector(".actCondition").className = "conditions " + this.parentNode.querySelector(".actCondition").getAttribute("data-condition") + "Condition";
-        this.className = "conditions " + this.getAttribute("data-condition") + "Condition actCondition";
-        changeCondition(this.parentNode.parentNode, this.textContent);
-        addConditionModule(this);
+          if(!actCond.className.match(/\bactCondition\b/)) {
+            addConditionModule(this);
+            changeCondition(this.parentNode.parentNode, this.textContent);
+          }
       });
     });
 
     Array.prototype.forEach.call(removeConditionBtns, function(btn) {
       btn.addEventListener("click", function(event) {
-        $(".actCondition").removeClass("actCondition");
-        this.parentNode.parentNode.querySelector('.conditionSelected').textContent = "";
-        this.parentNode.parentNode.querySelector('.conditionSelected').className = "conditionSelected";
         removeConditionModule(this);
       });
     });
@@ -514,11 +507,17 @@ $(document).ready(function () {
   }
 
   function changeCondition(elem, val) {
-    if(val === "OR")
-      elem.querySelector(".conditionSelected").className = "conditionSelected orselection";
-    else
-      elem.querySelector(".conditionSelected").className = "conditionSelected andselection";
-    elem.querySelector(".conditionSelected").textContent = val;
+    if(val === "OR"){
+      elem.nextSibling.querySelector(".conditionSelected").className = "conditionSelected orselection";
+      elem.querySelector(".andCondition").className = "conditions andCondition actCondition";
+      elem.nextSibling.querySelector(".conditionSelected").textContent = val;
+      return true;
+    }
+    else{
+      elem.nextSibling.querySelector(".conditionSelected").className = "conditionSelected andselection";
+      elem.nextSibling.querySelector(".conditionSelected").textContent = val;
+      return false;
+    }
   }
 
   bindConditionSelection();
@@ -527,9 +526,11 @@ $(document).ready(function () {
 
   function addConditionModule(that) {
     if(that.parentNode.parentNode.nextSibling) {
-      that.parentNode.parentNode.parentNode.insertBefore(getConditionModule(), that.parentNode.parentNode.nextSibling);
-    bindConditionSelection(that.parentNode.parentNode.nextSibling);
-      resetConditions(that.parentNode.parentNode.nextSibling);
+      console.log("into target");
+      that.parentNode.parentNode.parentNode.insertBefore(getConditionModule(that.parentNode.parentNode), that.parentNode.parentNode.nextSibling);
+      bindConditionSelection(that.parentNode.parentNode.nextSibling);
+      if( document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length - 1] === that.parentNode.parentNode.nextSibling)
+        resetConditions(that.parentNode.parentNode.nextSibling);
     }
     else {
       console.log("one condition module only");
@@ -542,8 +543,8 @@ $(document).ready(function () {
 
   /*************** getConditionModule ********************/
 
-  function getConditionModule() {
-    return document.querySelector(".conditionModule").cloneNode(true);
+  function getConditionModule(that) {
+    return that.cloneNode(true);
 
   }
 
@@ -556,9 +557,41 @@ $(document).ready(function () {
   /***************** remove condition module *****************/
 
   function removeConditionModule(btn) {
-    console.log(btn, btn.parentNode.parentNode.parentNode);
+
+    if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV") {
+
+      if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR")
+        btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "condtions andCondition";
+
+    }
+
+    if(btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
+
+      if(btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.querySelector(".conditionSelected").textContent === "AND") {
+        btn.parentNode.parentNode.nextSibling.querySelector(".orCondition").className = "condtions orCondition";
+        btn.parentNode.parentNode.nextSibling.querySelector(".andCondition").className = "condtions andCondition";
+        btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent = "AND";
+        btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").className = "conditionSelected andselection";
+      }
+
+    }
+
+    if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV" && btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
+      if(btn.parentNode.parentNode.previousSibling === btn.parentNode.parentNode.parentNode.querySelector(".conditionModule") ) {
+        console.log("yo");
+         btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition" ;
+       }
+      if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
+        btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").className = "conditionSelected orselection";
+      }
+      if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "AND" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
+        btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition";
+      }
+    }
+
     if(document.querySelectorAll(".conditionModule").length > 1)
       btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode);
+
   }
 
   /**********************************************************/
