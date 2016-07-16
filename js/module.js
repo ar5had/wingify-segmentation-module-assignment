@@ -114,24 +114,24 @@ $(document).ready(function () {
     btn.addEventListener('click', function(event) {
       var locationst, devicest, osst, browserst, visitDayst, location, device, os, browser, visitDay, visitorType;
       var segment = event.target.parentNode.parentNode.querySelector(".seg_wrapper");
-      var name = segment.childNodes[0].textContent;
-      var filePath = segment.childNodes[1].textContent.substring(12);
-      if (segment.childNodes[2].textContent.substring(11, 17) === "except")
+      var name = segment.childNodes[1].textContent;
+      var filePath = segment.childNodes[2].textContent.substring(12);
+      if (segment.childNodes[3].textContent.substring(11, 17) === "except")
         locationst = true;
-      location = locationst ? segment.childNodes[2].textContent.substring(18).split(", ") : segment.childNodes[2].textContent.substring(11).split(", ");
-      if (segment.childNodes[3].textContent.substring(14, 20) === "except")
+      location = locationst ? segment.childNodes[3].textContent.substring(18).split(", ") : segment.childNodes[3].textContent.substring(11).split(", ");
+      if (segment.childNodes[4].textContent.substring(14, 20) === "except")
         devicest = true;
-      device = devicest ? segment.childNodes[3].textContent.substring(21).split(", ") : segment.childNodes[3].textContent.substring(14).split(", ");
-      if (segment.childNodes[4].textContent.substring(12, 18) === "except")
+      device = devicest ? segment.childNodes[4].textContent.substring(21).split(", ") : segment.childNodes[4].textContent.substring(14).split(", ");
+      if (segment.childNodes[5].textContent.substring(12, 18) === "except")
         osst = true;
-      os = osst ? segment.childNodes[4].textContent.substring(19).split(", ") : segment.childNodes[4].textContent.substring(12).split(", ");
-      if (segment.childNodes[5].textContent.substring(10, 16) === "except")
+      os = osst ? segment.childNodes[5].textContent.substring(19).split(", ") : segment.childNodes[5].textContent.substring(12).split(", ");
+      if (segment.childNodes[6].textContent.substring(10, 16) === "except")
         browserst = true;
-      browser = browserst ? segment.childNodes[5].textContent.substring(17).split(", ") : segment.childNodes[5].textContent.substring(10).split(", ");
-      if (segment.childNodes[6].textContent.substring(12, 18) === "except")
+      browser = browserst ? segment.childNodes[6].textContent.substring(17).split(", ") : segment.childNodes[6].textContent.substring(10).split(", ");
+      if (segment.childNodes[7].textContent.substring(12, 18) === "except")
         visitDayst = true;
-      visitDay = visitDayst ? segment.childNodes[6].textContent.substring(19).split(", ") : segment.childNodes[6].textContent.substring(12).split(", ");
-      visitorType = segment.childNodes[7].textContent.substring(15);
+      visitDay = visitDayst ? segment.childNodes[7].textContent.substring(19).split(", ") : segment.childNodes[7].textContent.substring(12).split(", ");
+      visitorType = segment.childNodes[8].textContent.substring(15);
       if(visitDayst)
         document.querySelector(".visitDaySelectionType").options[1].selected = true;
       if(locationst)
@@ -151,6 +151,7 @@ $(document).ready(function () {
       bindEditHelper(".device_browser", browser);
       bindEditHelper(".visit_day", visitDay);
       remActRad();
+      console.log(visitorType);
       document.querySelector("#"+visitorType).className = "radBtn active_rad";
       $(".showpopup").click();
       editPopup = true;
@@ -314,7 +315,6 @@ $(document).ready(function () {
         var selectedItem = elem.options[elem.selectedIndex].text;
         switch (selectedItem) {
           case "Location":
-            console.log(location);
             return "Location: " + location;
             break;
           case "Browser":
@@ -572,7 +572,6 @@ $(document).ready(function () {
         resetConditions(that.parentNode.parentNode.nextSibling);
     }
     else {
-      console.log("one condition module only");
       that.parentNode.parentNode.parentNode.appendChild(getConditionModule());
       bindConditionSelection(that.parentNode.parentNode.parentNode.lastChild);
       resetConditions(that.parentNode.parentNode.parentNode.lastChild);
@@ -617,7 +616,7 @@ $(document).ready(function () {
 
     if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV" && btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
       if(btn.parentNode.parentNode.previousSibling === btn.parentNode.parentNode.parentNode.querySelector(".conditionModule") ) {
-        console.log("yo");
+
          btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition" ;
        }
       if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
@@ -635,7 +634,7 @@ $(document).ready(function () {
       document.querySelector(".andCondition").className = "conditions andCondition";
 
     if(document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className.match(/\bactCondition\b/)) {
-      console.log("hey");
+
       document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className = "conditions andCondition";
     }
   }
