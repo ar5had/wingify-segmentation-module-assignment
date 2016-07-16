@@ -190,6 +190,17 @@ $(document).ready(function () {
       elem.querySelector(".conditionSelected").className = "conditionSelected " + (conditionValues[i].textContent.toLowerCase() === "or" ? "orselection" : "andselection" );
       document.querySelector(".conditionsWrapper").appendChild(elem);
     }
+
+    for(var i = 0 ; i < selectionNames.length; i++) {
+      var selectElem = document.querySelectorAll(".segmentCondition");
+      Array.prototype.forEach.call(selectElem[i].options, function(opt) {
+
+        if(opt.value === selectionNames[i].substring(1, selectionNames[i].length-1)) {
+          opt.selected = true;
+
+        }
+      });
+    }
   }
 
   /********** modal select box settings **********/
@@ -332,16 +343,16 @@ $(document).ready(function () {
           case "Browser":
             return "Browser: " + browser;
             break;
-          case "Device_OS":
+          case "Device OS":
             return "Device_OS: " + os;
             break;
-          case "Device_type":
+          case "Device type":
             return "Device_type: " + device;
             break;
-          case "Visit_day":
+          case "Visit day":
             return "Visit_day: " + visitDay;
             break;
-          case "Visitor_type":
+          case "Visitor type":
             return "Visitor_type: " + visitorType;
             break;
           default:
