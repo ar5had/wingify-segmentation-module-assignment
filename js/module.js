@@ -114,7 +114,7 @@ $(document).ready(function () {
     btn.addEventListener('click', function(event) {
       var locationst, devicest, osst, browserst, visitDayst, location, device, os, browser, visitDay, visitorType;
       var segment = event.target.parentNode.parentNode.querySelector(".seg_wrapper");
-      var name = segment.childNodes[1].textContent;
+      var name = segment.childNodes[0].textContent;
       var filePath = segment.childNodes[2].textContent.substring(12);
       var condString = segment.childNodes[10].textContent;
       var conditionSels = condString.match(/'(\w+):/gi);
