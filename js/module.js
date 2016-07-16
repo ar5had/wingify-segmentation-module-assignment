@@ -68,7 +68,7 @@ $(document).ready(function () {
   function getSegment() {
     var segment = document.createElement("section");
     segment.className = "segment_sect";
-    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Advanced</h2><p class="col-xs-12 conditionsHolder"></p></div>';
+    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Advanced</h2><p class="col-xs-12 conditionsHolder"></p><p class="col-xs-12 emptyCondDisplay hidden">AND/OR condtions have not been set</p></div>';
     return segment;
   }
 
@@ -192,9 +192,11 @@ $(document).ready(function () {
       var elem = document.querySelector(".conditionModule").cloneNode(true);
       elem.querySelector(".conditionSelected").textContent = conditionValues[i].textContent;
       elem.querySelector(".conditionSelected").className = "conditionSelected " + (conditionValues[i].textContent.toLowerCase() === "or" ? "orselection" : "andselection" );
+      bindConditionSelection(elem);
       document.querySelector(".conditionsWrapper").appendChild(elem);
     }
 
+    // setting selection in advancedTab
     for(var i = 0 ; i < selectionNames.length; i++) {
       var selectElem = document.querySelectorAll(".segmentCondition");
       Array.prototype.forEach.call(selectElem[i].options, function(opt) {
@@ -205,6 +207,18 @@ $(document).ready(function () {
         }
       });
     }
+    disableAndBtns();
+  }
+
+  function disableAndBtns() {
+    var cmods = document.querySelectorAll(".conditionModule");
+    console.log("cmods",cmods);
+    for(var i = 0; i < cmods.length-1; i++) {
+      console.log("dfslk",cmods[i+1].querySelector(".conditionDisplay").textContent);
+      if(cmods[i+1].querySelector(".conditionSelected").textContent === "OR")
+        cmods[i].querySelector(".andCondition").className = "andCondition conditions actCondition";
+    }
+
   }
 
   /********** modal select box settings **********/
@@ -374,6 +388,15 @@ $(document).ready(function () {
       segment.querySelector("#vd_value").textContent = visitDay;
       segment.querySelector("#vt_value").textContent = visitorType;
       segment.querySelector(".conditionsHolder").innerHTML = conditionString;
+      if(conditionString === "['undefined']") {
+        segment.querySelector(".emptyCondDisplay").className = "col-xs-12 emptyCondDisplay";
+        segment.querySelector(".conditionsHolder").className = "col-xs-12 conditionsHolder hidden";
+      }
+      else  {
+        segment.querySelector(".conditionsHolder").className = "col-xs-12 conditionsHolder";
+        segment.querySelector(".emptyCondDisplay").className = "col-xs-12 emptyCondDisplay hidden";
+      }
+
       if(!editPopup)
         addSegment(segment);
       else{
@@ -637,14 +660,14 @@ $(document).ready(function () {
 
   function removeConditionModule(btn) {
 
-    if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV") {
+    if(btn.parentNode.parentNode.previousSibling && btn.parentNode.parentNode.previousSibling.nodeName === "DIV") {
 
       if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR")
         btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "condtions andCondition";
 
     }
 
-    if(btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
+    if(btn.parentNode.parentNode.nextSibling && btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
 
       if(btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.querySelector(".conditionSelected").textContent === "AND") {
         btn.parentNode.parentNode.nextSibling.querySelector(".orCondition").className = "condtions orCondition";

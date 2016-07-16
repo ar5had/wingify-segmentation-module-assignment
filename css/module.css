@@ -169,7 +169,7 @@ section.segment_sect {
 .es_wrapper > p {
   color: #999 ;
   word-spacing: 1px;
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: .4px;
 }
 
@@ -408,6 +408,10 @@ section.segment_sect {
 
 p.conditionsHolder > span {
   font-weight: 700;
+  color: #999;
+}
+
+.emptyCondDisplay {
   color: #999;
 }
 
