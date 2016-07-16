@@ -96,7 +96,8 @@ section {
 }
 
 section:first-child {
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .sections > section:last-child{
@@ -1025,4 +1026,14 @@ h3.orselection::after {
 .conditionsInfo {
   color: #797979;
   margin: 0;
+}
+
+
+@media screen and (max-width: 350px) {
+  .scWrapper {
+    width: 48%;
+  }
+  .selectionConditions {
+    width: 52%;
+  }
 }
