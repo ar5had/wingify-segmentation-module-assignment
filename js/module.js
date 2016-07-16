@@ -116,6 +116,9 @@ $(document).ready(function () {
       var segment = event.target.parentNode.parentNode.querySelector(".seg_wrapper");
       var name = segment.childNodes[1].textContent;
       var filePath = segment.childNodes[2].textContent.substring(12);
+      var condString = segment.childNodes[10].textContent;
+      var conditionSels = condString.match(/'(\w+):/gi);
+      var conditionVals = segment.querySelectorAll(".conditionsHolder > span");
       if (segment.childNodes[3].textContent.substring(11, 17) === "except")
         locationst = true;
       location = locationst ? segment.childNodes[3].textContent.substring(18).split(", ") : segment.childNodes[3].textContent.substring(11).split(", ");
@@ -151,8 +154,8 @@ $(document).ready(function () {
       bindEditHelper(".device_browser", browser);
       bindEditHelper(".visit_day", visitDay);
       remActRad();
-      console.log(visitorType);
       document.querySelector("#"+visitorType).className = "radBtn active_rad";
+      setAdvancedTab(conditionSels, conditionVals);
       $(".showpopup").click();
       editPopup = true;
       editSegment = segment;
@@ -178,6 +181,15 @@ $(document).ready(function () {
           }
         });
       });
+  }
+
+  function setAdvancedTab(selectionNames, conditionValues) {
+    for(var i = 0; i < conditionValues.length; i++) {
+      var elem = document.querySelector(".conditionModule").cloneNode(true);
+      elem.querySelector(".conditionSelected").textContent = conditionValues[i].textContent;
+      elem.querySelector(".conditionSelected").className = "conditionSelected " + (conditionValues[i].textContent.toLowerCase() === "or" ? "orselection" : "andselection" );
+      document.querySelector(".conditionsWrapper").appendChild(elem);
+    }
   }
 
   /********** modal select box settings **********/
@@ -320,17 +332,17 @@ $(document).ready(function () {
           case "Browser":
             return "Browser: " + browser;
             break;
-          case "Device OS":
-            return "Device OS: " + os;
+          case "Device_OS":
+            return "Device_OS: " + os;
             break;
-          case "Device type":
-            return "Device type: " + device;
+          case "Device_type":
+            return "Device_type: " + device;
             break;
-          case "Visit day":
-            return "Visit day: " + visitDay;
+          case "Visit_day":
+            return "Visit_day: " + visitDay;
             break;
-          case "Visitor Type":
-            return "Visitor type: " + visitorType;
+          case "Visitor_type":
+            return "Visitor_type: " + visitorType;
             break;
           default:
             console.log("problem in switch");
