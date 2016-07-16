@@ -834,6 +834,7 @@ h3.visitor {
   outline: none;
   border: none;
   font-size: 11px;
+  vertical-align: middle;
 }
 
 .andCondition {

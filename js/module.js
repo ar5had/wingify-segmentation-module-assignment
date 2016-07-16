@@ -68,7 +68,7 @@ $(document).ready(function () {
   function getSegment() {
     var segment = document.createElement("section");
     segment.className = "segment_sect";
-    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic Info</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Conditions</h2><p class="col-xs-12 conditionsHolder"></p></div>';
+    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Advanced</h2><p class="col-xs-12 conditionsHolder"></p></div>';
     return segment;
   }
 
@@ -118,6 +118,7 @@ $(document).ready(function () {
       var filePath = segment.childNodes[2].textContent.substring(12);
       var condString = segment.childNodes[10].textContent;
       var conditionSels = condString.match(/'(\w+):/gi);
+      console.log(condString);
       var conditionVals = segment.querySelectorAll(".conditionsHolder > span");
       if (segment.childNodes[3].textContent.substring(11, 17) === "except")
         locationst = true;
@@ -155,7 +156,10 @@ $(document).ready(function () {
       bindEditHelper(".visit_day", visitDay);
       remActRad();
       document.querySelector("#"+visitorType).className = "radBtn active_rad";
-      setAdvancedTab(conditionSels, conditionVals);
+
+      if(conditionSels)
+        setAdvancedTab(conditionSels, conditionVals);
+
       $(".showpopup").click();
       editPopup = true;
       editSegment = segment;
@@ -326,7 +330,9 @@ $(document).ready(function () {
       browser = browser || "All";
       os = os || "All";
       visitDay = visitDay || "Anyday";
+
       var conditionString = "[";
+      deleteEmptyModules();
       var conditions = document.querySelectorAll(".conditionSelected");
       var segNames = document.querySelectorAll(".segmentCondition");
       for(var i = 0; i < segNames.length-1; i++) {
@@ -410,6 +416,16 @@ $(document).ready(function () {
 
   function checkSelectionType(elem) {
     return elem.options[1].selected;
+  }
+
+  function deleteEmptyModules() {
+    var emptyMods = document.querySelectorAll(".conditionModule");
+
+    Array.prototype.forEach.call(emptyMods, function(condSelect) {
+      var val = condSelect.querySelector(".segmentCondition").options[emptyMods[0].querySelector(".segmentCondition").selectedIndex].value;
+      if(val === "Select")
+        condSelect.querySelector(".removeCondition").click();
+    });
   }
 
   /********** refresh modal function for clearing out selections**********/
@@ -563,6 +579,8 @@ $(document).ready(function () {
 
     Array.prototype.forEach.call(removeConditionBtns, function(btn) {
       btn.addEventListener("click", function(event) {
+
+          console.log("removeCondition button clicked");
         removeConditionModule(this);
       });
     });
