@@ -118,7 +118,6 @@ $(document).ready(function () {
       var filePath = segment.childNodes[2].textContent.substring(12);
       var condString = segment.childNodes[10].textContent;
       var conditionSels = condString.match(/'(\w+):/gi);
-      console.log(condString);
       var conditionVals = segment.querySelectorAll(".conditionsHolder > span");
       if (segment.childNodes[3].textContent.substring(11, 17) === "except")
         locationst = true;
@@ -212,9 +211,7 @@ $(document).ready(function () {
 
   function disableAndBtns() {
     var cmods = document.querySelectorAll(".conditionModule");
-    console.log("cmods",cmods);
     for(var i = 0; i < cmods.length-1; i++) {
-      console.log("dfslk",cmods[i+1].querySelector(".conditionDisplay").textContent);
       if(cmods[i+1].querySelector(".conditionSelected").textContent === "OR")
         cmods[i].querySelector(".andCondition").className = "andCondition conditions actCondition";
     }
@@ -442,10 +439,9 @@ $(document).ready(function () {
   }
 
   function deleteEmptyModules() {
-    var emptyMods = document.querySelectorAll(".conditionModule");
-
-    Array.prototype.forEach.call(emptyMods, function(condSelect) {
-      var val = condSelect.querySelector(".segmentCondition").options[emptyMods[0].querySelector(".segmentCondition").selectedIndex].value;
+    var mods = document.querySelectorAll(".conditionModule");
+    Array.prototype.forEach.call(mods, function(condSelect) {
+      var val = condSelect.querySelector(".segmentCondition").options[condSelect.querySelector(".segmentCondition").selectedIndex].value;
       if(val === "Select")
         condSelect.querySelector(".removeCondition").click();
     });
@@ -602,8 +598,6 @@ $(document).ready(function () {
 
     Array.prototype.forEach.call(removeConditionBtns, function(btn) {
       btn.addEventListener("click", function(event) {
-
-          console.log("removeCondition button clicked");
         removeConditionModule(this);
       });
     });
@@ -636,7 +630,7 @@ $(document).ready(function () {
         resetConditions(that.parentNode.parentNode.nextSibling);
     }
     else {
-      that.parentNode.parentNode.parentNode.appendChild(getConditionModule());
+      that.parentNode.parentNode.parentNode.appendChild(getConditionModule(that.parentNode.parentNode));
       bindConditionSelection(that.parentNode.parentNode.parentNode.lastChild);
       resetConditions(that.parentNode.parentNode.parentNode.lastChild);
     }
@@ -678,16 +672,18 @@ $(document).ready(function () {
 
     }
 
-    if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV" && btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
-      if(btn.parentNode.parentNode.previousSibling === btn.parentNode.parentNode.parentNode.querySelector(".conditionModule") ) {
+    if(btn.parentNode.parentNode.previousSibling && btn.parentNode.parentNode.nextSibling) {
+      if(btn.parentNode.parentNode.previousSibling.nodeName === "DIV" && btn.parentNode.parentNode.nextSibling.nodeName === "DIV") {
+        if(btn.parentNode.parentNode.previousSibling === btn.parentNode.parentNode.parentNode.querySelector(".conditionModule") ) {
 
-         btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition" ;
-       }
-      if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
-        btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").className = "conditionSelected orselection";
-      }
-      if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "AND" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
-        btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition";
+           btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition" ;
+         }
+        if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "OR" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
+          btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").className = "conditionSelected orselection";
+        }
+        if(btn.parentNode.parentNode.previousSibling.querySelector(".conditionSelected").textContent === "AND" && btn.parentNode.parentNode.nextSibling.querySelector(".conditionSelected").textContent === "AND") {
+          btn.parentNode.parentNode.previousSibling.querySelector(".andCondition").className = "conditions andCondition";
+        }
       }
     }
 
