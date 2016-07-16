@@ -68,7 +68,7 @@ $(document).ready(function () {
   function getSegment() {
     var segment = document.createElement("section");
     segment.className = "segment_sect";
-    segment.innerHTML = "<div class='control_btns'><button type='button' name='button' class='control_btn_select'></button><button type='button' name='button' class='control_btn_edit'></button></div><div class='seg_wrapper'><h3 id='seg_name' class='col-xs-12'></h3><p id='file_path' class='col-xs-12'><span id='fp' class='glyphicon glyphicon-link'></span> File path: <span id='fp_value'></span></p><p id='location' class='col-xs-12'><span id='loc' class='glyphicon glyphicon-map-marker'></span> Location: <span id='loc_value'></span></p><p id='device_typ' class='col-xs-12'><span id='dt' class='glyphicon glyphicon-phone'></span> Device type: <span id='dt_value'></span></p><p id='device_os' class='col-xs-12'><span id='do' class='glyphicon glyphicon-list-alt'></span> Device OS: <span id='do_value'></span></p><p id='device_brow' class='col-xs-12'><span id='db' class='glyphicon glyphicon-globe'></span> Browser: <span id='db_value'></span></p><p id='visit_day' class='col-xs-12'><span id='vd' class='glyphicon glyphicon-calendar'></span> Visit day: <span id='vd_value'></span></p><p id='visitor_type' class='col-xs-12'><span id='vt' class='glyphicon glyphicon-user'></span> Visitor type: <span id='vt_value'></span></p></div>";
+    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic Info</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Conditions</h2><p class="col-xs-12 conditionsHolder"></p></div>';
     return segment;
   }
 
@@ -251,6 +251,7 @@ $(document).ready(function () {
     var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes);
     var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes);
     var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
+
     if(name === "" || filePath === ""){
       showWarning("Fields of the basic info are required.");
       return false;
@@ -301,6 +302,40 @@ $(document).ready(function () {
       browser = browser || "All";
       os = os || "All";
       visitDay = visitDay || "Anyday";
+      var conditionString = "[";
+      var conditions = document.querySelectorAll(".conditionSelected");
+      var segNames = document.querySelectorAll(".segmentCondition");
+      for(var i = 0; i < segNames.length-1; i++) {
+        conditionString +=  "'"+segInfo(segNames[i])+"'" + (conditions[i+1].textContent === 'AND' ? ']' : "") + " <span>" + conditions[i+1].textContent + "</span> " + (conditions[i+1].textContent === 'AND' ? '[' : "");
+
+      }
+      conditionString += "'" + segInfo(segNames[i]) + "']";
+      function segInfo(elem) {
+        var selectedItem = elem.options[elem.selectedIndex].text;
+        switch (selectedItem) {
+          case "Location":
+            console.log(location);
+            return "Location: " + location;
+            break;
+          case "Browser":
+            return "Browser: " + browser;
+            break;
+          case "Device OS":
+            return "Device OS: " + os;
+            break;
+          case "Device type":
+            return "Device type: " + device;
+            break;
+          case "Visit day":
+            return "Visit day: " + visitDay;
+            break;
+          case "Visitor Type":
+            return "Visitor type: " + visitorType;
+            break;
+          default:
+            console.log("problem in switch");
+        }
+      }
       segment.querySelector("#seg_name").textContent = name;
       segment.querySelector("#fp_value").textContent = filePath;
       segment.querySelector("#loc_value").textContent = location;
@@ -309,6 +344,7 @@ $(document).ready(function () {
       segment.querySelector("#db_value").textContent = browser;
       segment.querySelector("#vd_value").textContent = visitDay;
       segment.querySelector("#vt_value").textContent = visitorType;
+      segment.querySelector(".conditionsHolder").innerHTML = conditionString;
       if(!editPopup)
         addSegment(segment);
       else{
@@ -530,7 +566,6 @@ $(document).ready(function () {
 
   function addConditionModule(that) {
     if(that.parentNode.parentNode.nextSibling) {
-      console.log("into target");
       that.parentNode.parentNode.parentNode.insertBefore(getConditionModule(that.parentNode.parentNode), that.parentNode.parentNode.nextSibling);
       bindConditionSelection(that.parentNode.parentNode.nextSibling);
       if( document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length - 1] === that.parentNode.parentNode.nextSibling)
@@ -599,6 +634,10 @@ $(document).ready(function () {
     if(document.querySelectorAll(".conditionModule").length === 1)
       document.querySelector(".andCondition").className = "conditions andCondition";
 
+    if(document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className.match(/\bactCondition\b/)) {
+      console.log("hey");
+      document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className = "conditions andCondition";
+    }
   }
 
   function resetAdvancedTab() {

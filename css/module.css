@@ -170,6 +170,7 @@ section.segment_sect {
   color: #999 ;
   word-spacing: 1px;
   font-size: 15px;
+  letter-spacing: .4px;
 }
 
 .seg_img {
@@ -183,7 +184,7 @@ section.segment_sect {
   font-size: 21px;
   font-family: 'Montserrat';
   margin-top: 15px;
-  letter-spacing: 1px;
+  word-spacing: 2px;
 }
 
 .rem > span {
@@ -389,6 +390,25 @@ section.segment_sect {
   padding: 0 10px 0 0;
   word-wrap: break-word;
   overflow: hidden;
+}
+
+.seg_wrapper > h2 {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.seg_wrapper > p {
+  font-size: 16px;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+  padding: 0 10px 0 0;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+p.conditionsHolder > span {
+  font-weight: 700;
+  color: #999;
 }
 
 /************************************error message styling ***********************************/
