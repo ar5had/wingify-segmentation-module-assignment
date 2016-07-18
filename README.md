@@ -21,6 +21,9 @@ Segmentation is used show a special version/variation of the user's webpage to a
 
 Here's a use-case for a better understanding. Peter owns a computer e-commerce store in Canada, and wants to show a 'Friday Macbook Special' offer page only to people who don't yet own a Mac computer. He also thinks that people who own an iPhone/iPad might be interested in buying a mac computer.
 
+Hence, an example of what his segment selection might look like:
+['Location= Canada'] AND ['Day= Friday'] AND ['Operating system=all except Mac-OS' OR 'Mobile Device= iPhone, iPad']
+
 
 **Challenge:**
 
