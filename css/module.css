@@ -40,7 +40,7 @@ button {
   outline: none;
 }
 
-button.rem{
+button.rem, button.comb{
   background: #f2f2f2;
   color: #3e3e3e;
   font-size: 20px;
@@ -54,12 +54,12 @@ button.rem{
   display: none;
 }
 
-.rem, .add, .help {
+.rem, .add, .comb {
   vertical-align: middle;
   padding: 0 15px !important;
 }
 
-.rem, .add {
+.rem, .add, .comb {
   font-family: 'Source Sans Pro', sans-serif !important;
 }
 
@@ -67,13 +67,22 @@ button.rem{
   line-height: 41.5px;
 }
 
-button.rem_segment {
+button.rem_segment, button.comb_segment {
   background: #f2f2f2;
   color: #3e3e3e;
   margin-right: 10px;
 }
 
-button.help:hover, button.rem_segment:hover, .rem:hover {
+.comb {
+  padding: 0px !important;
+}
+
+.comb > img {
+  width: 14px;
+  padding-bottom: 2px;
+}
+
+button.comb_segment:hover, .comb:hover, button.rem_segment:hover, .rem:hover {
   background: #ddd;
 }
 
@@ -171,7 +180,7 @@ section.segment_sect {
   color: #999 ;
   word-spacing: 1px;
   font-size: 16px;
-  letter-spacing: .4px;
+  letter-spacing: 1px;
 }
 
 .seg_img {
@@ -185,7 +194,8 @@ section.segment_sect {
   font-size: 21px;
   font-family: 'Montserrat';
   margin-top: 15px;
-  word-spacing: 2px;
+  word-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 .rem > span {
@@ -221,15 +231,23 @@ section.segment_sect {
     margin: 25px auto;
   }
 
-  button.rem, button.add {
+  button.rem, button.add, button.comb {
     height: 34.5px;
     width: 34.5px;
+  }
+
+  button.comb > img {
+    width: 12px;
   }
 
   .rem > span, .add > span {
     line-height: 34.5px;
     font-size: 11px;
     left: -3px;
+  }
+
+  .add > span{
+    font-size: 10px;
   }
 
   section {
@@ -264,6 +282,11 @@ section.segment_sect {
   .selectionConditions {
     transform: scale(.9);
   }
+
+  .es_wrapper > p, .seg_wrapper > p {
+    font-size: 15px !important;
+  }
+
 }
 
 @media screen and (max-width: 290px) {

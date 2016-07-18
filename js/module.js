@@ -24,8 +24,8 @@ $(document).ready(function () {
     $('#hider').removeClass("hidden");
     $('#popup').removeClass("hidden");
     $("body").addClass("modal-open");
-    $("#hider").fadeIn(400);
-    $('#popup').fadeIn(400);
+    $("#hider").fadeIn(300);
+    $('#popup').fadeIn(300);
     document.querySelector(".main_content").scrollTop = 0;
     initializeTabs();
   });
@@ -35,8 +35,8 @@ $(document).ready(function () {
   $(".buttonClose").click(function(event) {
     if(bindSelections()){
       $("body").removeClass("modal-open");
-      $("#hider").fadeOut(400);
-      $('#popup').fadeOut(400);
+      $("#hider").fadeOut(300);
+      $('#popup').fadeOut(300);
       setTimeout(function(){
         refreshModal();
       }, 350);
@@ -68,7 +68,7 @@ $(document).ready(function () {
   function getSegment() {
     var segment = document.createElement("section");
     segment.className = "segment_sect";
-    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Advanced</h2><p class="col-xs-12 conditionsHolder"></p><p class="col-xs-12 emptyCondDisplay hidden">AND/OR condtions have not been set</p></div>';
+    segment.innerHTML = '<div class="control_btns"><button type="button" name="button" class="control_btn_select"></button><button type="button" name="button" class="control_btn_edit"></button></div><div class="seg_wrapper"><h3 id="seg_name" class="col-xs-12"></h3><h2 class="col-xs-12">Basic</h2><p id="file_path" class="col-xs-12 col-sm-6"><span id="fp" class="glyphicon glyphicon-link"></span> File path: <span id="fp_value"></span></p><p id="location" class="col-xs-12 col-sm-6"><span id="loc" class="glyphicon glyphicon-map-marker"></span> Location: <span id="loc_value"></span></p><p id="device_typ" class="col-xs-12 col-sm-6"><span id="dt" class="glyphicon glyphicon-phone"></span> Device type: <span id="dt_value"></span></p><p id="device_os" class="col-xs-12 col-sm-6"><span id="do" class="glyphicon glyphicon-list-alt"></span> Device OS: <span id="do_value"></span></p><p id="device_brow" class="col-xs-12 col-sm-6"><span id="db" class="glyphicon glyphicon-globe"></span> Browser: <span id="db_value"></span></p><p id="visit_day" class="col-xs-12 col-sm-6"><span id="vd" class="glyphicon glyphicon-calendar"></span> Visit day: <span id="vd_value"></span></p><p id="visitor_type" class="col-xs-12 col-sm-6"><span id="vt" class="glyphicon glyphicon-user"></span> Visitor type: <span id="vt_value"></span></p><h2 class="col-xs-12">Advanced</h2><p class="col-xs-12 conditionsHolder"></p><p class="col-xs-12 emptyCondDisplay hidden">AND/OR condtions between different segments have not been set.</p></div>';
     return segment;
   }
 
@@ -295,7 +295,7 @@ $(document).ready(function () {
       showWarning("Fields of the basic info are required.");
       return false;
     }
-      else {
+    else {
       if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
         if(location === 'All') {
           showWarning("All countries can't be excluded.");
@@ -413,7 +413,7 @@ $(document).ready(function () {
 
   function getButtonsText(btns) {
     var string = "";
-    for(var i = 0; i < btns.length - 1; i++) {
+    for(var i = 0; i < btns.length-1; i++) {
       if(btns[i].nodeName !== "BUTTON")
         continue;
       else {
@@ -428,8 +428,13 @@ $(document).ready(function () {
     }
 
     if(btns[i]){
-      if(btns[i].nodeName === "BUTTON")
-        string += btns[i].textContent;
+      if(btns[i].nodeName === "BUTTON") {
+        if(btns[i].textContent === "All" || btns[i].textContent === "Anyday")
+          string = btns[i].textContent;
+        else {
+          string += btns[i].textContent;
+        }
+      }
     }
     return string;
   }
@@ -697,6 +702,8 @@ $(document).ready(function () {
 
       document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className = "conditions andCondition";
     }
+
+    disableAndBtns();
   }
 
   function resetAdvancedTab() {
