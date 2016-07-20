@@ -719,4 +719,13 @@ $(document).ready(function () {
   document.querySelector(".removeSegment").disabled = false;
   document.querySelector(".rem_segment").disabled = false;
 
+  /******************segment grouping/combination setup****************/
+
+  var combBtn = document.querySelectorAll(".combineSegment");
+  Array.prototype.forEach.call(combBtn, function(btn) {
+    btn.adddEventListener("click", function(){
+      var segments = document.querySelectorAll(".selected_seg");
+    });
+  });
+
 });
