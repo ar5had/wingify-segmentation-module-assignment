@@ -261,7 +261,7 @@
                   <div class="col-xs-6 col-sm-8 scWrapper">
                     <select class="segmentCondition" name="segmentCondition">
                       <option value="Select" disabled="true" selected="true">Select</option>
-                      <option value="Location">Location</option>
+                      <option value="Country">Country</option>
                       <option value="Device_type">Device type</option>
                       <option value="Device_OS">Device OS</option>
                       <option value="Browser">Browser</option>
@@ -273,6 +273,9 @@
                     <button type="button" name="button" class="removeCondition" data-condition="remove"><span class="glyphicon glyphicon-minus"></span></button><!--
                   --><button type="button" name="button" class="conditions andCondition" data-condition="and">AND</button><!--
                   --><button type="button" name="button" class="conditions orCondition" data-condition="or">OR</button>
+                  </div>
+                  <div class="selectedChoices col-xs-12">
+                    <p class="col-xs-12"></p>
                   </div>
                 </div>
               </div>
@@ -286,6 +289,7 @@
       </div>
     </div>
 
+    <script src="js/jquery.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script src="js/module.js"></script>

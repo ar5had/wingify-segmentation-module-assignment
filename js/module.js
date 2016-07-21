@@ -264,8 +264,10 @@ $(document).ready(function () {
     Array.prototype.forEach.call(targetSegments, function(seg) {
       seg.parentNode.removeChild(seg);
     });
-    if(document.querySelectorAll(".segment_sect").length === 0)
+    if(document.querySelectorAll(".segment_sect").length === 0) {
       empty_sect.className = "empty_sect";
+      $(".empty_sect").fadeIn(200);
+    }
   }
 
   /********** add segment settings **********/
@@ -274,7 +276,8 @@ $(document).ready(function () {
     var section = segment;
     bindSelectEvent(section.querySelector(".control_btn_select"));
     bindEditEvent(section.querySelector(".control_btn_edit"));
-    sections.appendChild(section);
+    sections.insertBefore(section, sections.querySelector(".m_wrapper section"));
+    $(".empty_sect").fadeOut(200);
     empty_sect.className = "empty_sect hidden"
   }
 
@@ -354,8 +357,8 @@ $(document).ready(function () {
       function segInfo(elem) {
         var selectedItem = elem.options[elem.selectedIndex].text;
         switch (selectedItem) {
-          case "Location":
-            return "Location: " + location;
+          case "Country":
+            return "Country: " + location;
             break;
           case "Browser":
             return "Browser: " + browser;
@@ -541,6 +544,7 @@ $(document).ready(function () {
     if ( $(".advancedTabBtn").hasClass("deactiveTab") ) {
       $(".basicTabBtn").addClass("deactiveTab");
       $(".advancedTabBtn").removeClass("deactiveTab");
+      conditionSelectedSetup();
       moveLeftBasicTab();
     }
   });
@@ -631,22 +635,26 @@ $(document).ready(function () {
     if(that.parentNode.parentNode.nextSibling) {
       that.parentNode.parentNode.parentNode.insertBefore(getConditionModule(that.parentNode.parentNode), that.parentNode.parentNode.nextSibling);
       bindConditionSelection(that.parentNode.parentNode.nextSibling);
-      if( document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length - 1] === that.parentNode.parentNode.nextSibling)
+      if( document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length - 1] === that.parentNode.parentNode.nextSibling) {
         resetConditions(that.parentNode.parentNode.nextSibling);
+        resetSelectedChoices(that.parentNode.parentNode.nextSibling);
+      }
+
     }
     else {
       that.parentNode.parentNode.parentNode.appendChild(getConditionModule(that.parentNode.parentNode));
       bindConditionSelection(that.parentNode.parentNode.parentNode.lastChild);
       resetConditions(that.parentNode.parentNode.parentNode.lastChild);
+      resetSelectedChoices(that.parentNode.parentNode.parentNode.lastChild);
     }
-
   }
 
   /*************** getConditionModule ********************/
 
   function getConditionModule(that) {
-    return that.cloneNode(true);
-
+     var module = that.cloneNode(true);
+     bindSegmentConditionSelect(module.querySelector(".segmentCondition"));
+     return module;
   }
 
   /*************** cloneConditionModule *******************/
@@ -714,6 +722,80 @@ $(document).ready(function () {
     cmList[0].querySelector(".segmentCondition").options[0].selected = true;
   }
 
+  function resetSelectedChoices(elem) {
+    elem.querySelector(".selectedChoices > p").textContent = "";
+  }
+
+  /****************** shows selected choices for a particular segment in advanced tab **************************/
+
+  function bindSegmentConditionSelect(select) {
+    select.addEventListener("change", function() {
+      var selected = this.options[this.selectedIndex].text;
+      this.parentNode.parentNode.querySelector(".selectedChoices > p").textContent = getSelections(selected);
+    });
+  }
+
+  function getSelections(text) {
+    switch (text) {
+      case 'Country':
+      var location = getButtonsText(document.querySelector(".countries_selected.selected_opt_area").childNodes);
+      if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
+        location = location ? ("except " + location) : "";
+      }
+      return "Country: " + location;
+      break;
+
+      case 'Device type':
+      var device = getButtonsText(document.querySelector(".device_selected.selected_opt_area").childNodes);
+      if(checkSelectionType(document.querySelector(".deviceSelectionType"))) {
+        device =  device ? ("except " + device) : "";
+      }
+      return "Device type: " + device;
+      break;
+
+      case 'Device OS':
+      var os = getButtonsText(document.querySelector(".device_os_selected.selected_opt_area").childNodes);
+      if(checkSelectionType(document.querySelector(".osSelectionType"))) {
+        os =  device ? ("except " + os) : "";
+      }
+      return "Device OS: " + os;
+      break;
+
+      case 'Browser':
+      var browser = getButtonsText(document.querySelector(".device_browser_selected.selected_opt_area").childNodes);
+      if(checkSelectionType(document.querySelector(".browserSelectionType"))) {
+        browser = browser ? ("except " + browser) : "";
+      }
+      return "Browser: " + browser;
+      break;
+
+      case 'Visit day':
+      var visitDay = getButtonsText(document.querySelector(".visit_day_selected.selected_opt_area").childNodes);
+      if(checkSelectionType(document.querySelector(".visitDaySelectionType"))) {
+        visitDay = visitDay ? ("except " + visitDay) : "";
+      }
+      return "Visit day: " + visitDay;
+      break;
+
+      case 'Visitor type':
+      var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
+      return "Visitor type: " + visitorType;
+      break;
+
+      default:
+      console.log("Some Error happened while updating selection in advancedTab");
+    }
+  }
+
+  function conditionSelectedSetup() {
+    var selectElems = Array.prototype.map.call(document.querySelectorAll(".segmentCondition"), function(elem) {
+                        return elem.options[elem.selectedIndex].text;
+                      });
+    console.log(selectElems);
+  }
+
+  bindSegmentConditionSelect(document.querySelector(".segmentCondition"));
+
   /**********************************************************/
 
   document.querySelector(".removeSegment").disabled = false;
@@ -723,9 +805,47 @@ $(document).ready(function () {
 
   var combBtn = document.querySelectorAll(".combineSegment");
   Array.prototype.forEach.call(combBtn, function(btn) {
-    btn.adddEventListener("click", function(){
+    btn.addEventListener("click", function(){
       var segments = document.querySelectorAll(".selected_seg");
+
+      addCombinedSegment(segments);
     });
   });
+
+  function addCombinedSegment(selections) {
+
+    var section = document.createElement("section");
+    section.className = "segment_sect";
+
+    var control_btns_div = document.createElement('div');
+    control_btns_div.className = "control_btns";
+    var selectBtn = document.createElement("button");
+    selectBtn.className = "control_btn_select";
+    var editBtn = document.createElement("button");
+    editBtn.className = "control_btn_edit";
+    control_btns_div.appendChild(selectBtn);
+    control_btns_div.appendChild(editBtn);
+    section.appendChild(control_btns_div);
+
+    var seg_wrapper_div = document.createElement("div");
+    seg_wrapper_div.className = "seg_wrapper";
+    var seg_name_heading = document.createElement("h3");
+    seg_name_heading.id = "seg_name";
+    seg_name_heading.className = "col-xs-12";
+    var heading = document.createElement("h2");
+    heading.className = "col-xs-12";
+    heading.textContent = "Conditions"
+    seg_wrapper_div.appendChild(seg_name_heading);
+    seg_wrapper_div.appendChild(heading);
+
+    // set for loop here
+    var condition = document.createElement("p");
+    condition.className = "col-xs-12 conditionsHolder";
+    seg_wrapper_div.appendChild(condition);
+    //loop ends here
+
+    section.appendChild(seg_wrapper_div);
+    addSegment(section);
+  }
 
 });

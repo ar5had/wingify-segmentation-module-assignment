@@ -180,7 +180,7 @@ section.segment_sect {
   color: #999 ;
   word-spacing: 1px;
   font-size: 16px;
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 }
 
 .seg_img {
@@ -303,12 +303,11 @@ section.segment_sect {
 }
 
 .segment_sect {
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+  -webkit-transition: box-shadow .2s ease-in-out, margin .2s ease-in-out;
+  -moz-transition: box-shadow .2s ease-in-out, margin .2s ease-in-out;
+  -o-transition: box-shadow .2s ease-in-out, margin .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, margin .2s ease-in-out;
   position: relative;
-
 }
 
 .seg_selected {
@@ -409,7 +408,7 @@ section.segment_sect {
 
 #file_path, #location, #device_typ, #device_os, #device_brow, #visitor_type, #visit_day{
   font-size: 16px;
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
   word-spacing: 3px;
   padding: 0 10px 0 0;
   word-wrap: break-word;
@@ -440,6 +439,7 @@ p.conditionsHolder > span {
 }
 
 /************************************error message styling ***********************************/
+
 #msg_wrapper {
   z-index:150;
   position: fixed;
@@ -1059,4 +1059,18 @@ h3.orselection::after {
   .selectionConditions {
     width: 52%;
   }
+}
+
+.selectedChoices {
+  padding: 0;
+  background: #3e3e3e;
+  margin-top: 15px;
+  border-radius: 2px;
+  min-height: 0;
+}
+
+.selectedChoices > p {
+  min-height: 0;
+  color: #fff;
+  margin: 0 auto;
 }
