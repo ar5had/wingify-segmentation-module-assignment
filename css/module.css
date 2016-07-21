@@ -106,7 +106,6 @@ section {
 
 section:first-child {
   padding-top: 30px;
-  padding-bottom: 30px;
 }
 
 .sections > section:last-child{

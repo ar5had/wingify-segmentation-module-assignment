@@ -9,6 +9,7 @@ $(document).ready(function () {
   var empty_sect = document.querySelector(".empty_sect");
   var sections = document.querySelector(".sections");
   var selectType = document.querySelectorAll("select.selectionType");
+
   /********** hiding modal **********/
 
   $("#hider").hide();
@@ -788,10 +789,12 @@ $(document).ready(function () {
   }
 
   function conditionSelectedSetup() {
-    var selectElems = Array.prototype.map.call(document.querySelectorAll(".segmentCondition"), function(elem) {
-                        return elem.options[elem.selectedIndex].text;
-                      });
+    var selectElems = document.querySelectorAll(".segmentCondition");
     console.log(selectElems);
+    Array.prototype.forEach.call(selectElems, function(elem) {
+      console.log(elem, elem.options[elem.selectedIndex].text);
+      elem.parentNode.parentNode.querySelector('.selectedChoices > p').textContent = getSelections(elem.options[elem.selectedIndex].text);
+    });
   }
 
   bindSegmentConditionSelect(document.querySelector(".segmentCondition"));
