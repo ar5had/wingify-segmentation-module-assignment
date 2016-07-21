@@ -477,6 +477,7 @@ $(document).ready(function () {
     primaryTabCondition();
     moveRightBasicTab();
     resetAdvancedTab();
+    document.querySelector(".selectedChoices").className = "selectedChoices col-xs-12 hidden";
   }
 
   function removeAllChild(node) {
@@ -654,6 +655,7 @@ $(document).ready(function () {
 
   function getConditionModule(that) {
      var module = that.cloneNode(true);
+     module.querySelector(".selectedChoices").className = "selectedChoices col-xs-12 hidden";
      bindSegmentConditionSelect(module.querySelector(".segmentCondition"));
      return module;
   }
@@ -701,11 +703,18 @@ $(document).ready(function () {
       }
     }
 
+    if(document.querySelectorAll(".conditionModule").length === 1){
+      document.querySelector(".segmentCondition").options[0].selected = true;
+      document.querySelector(".selectedChoices").className = "selectedChoices col-xs-12 hidden";
+      document.querySelector(".selectedChoices > p").textContent = "";
+    }
+
     if(document.querySelectorAll(".conditionModule").length > 1)
       btn.parentNode.parentNode.parentNode.removeChild(btn.parentNode.parentNode);
 
-    if(document.querySelectorAll(".conditionModule").length === 1)
+    if(document.querySelectorAll(".conditionModule").length === 1){
       document.querySelector(".andCondition").className = "conditions andCondition";
+    }
 
     if(document.querySelectorAll(".conditionModule")[document.querySelectorAll(".conditionModule").length-1].querySelector(".andCondition").className.match(/\bactCondition\b/)) {
 
@@ -732,6 +741,9 @@ $(document).ready(function () {
   function bindSegmentConditionSelect(select) {
     select.addEventListener("change", function() {
       var selected = this.options[this.selectedIndex].text;
+      this.parentNode.parentNode.querySelector(".selectedChoices").className = "selectedChoices col-xs-12";
+      this.parentNode.parentNode.querySelector(".selectedChoices").style.marginTop = "15px";
+      console.log(this.parentNode.parentNode);
       this.parentNode.parentNode.querySelector(".selectedChoices > p").textContent = getSelections(selected);
     });
   }
@@ -743,7 +755,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
         location = location ? ("except " + location) : "";
       }
-      return "Country: " + location;
+      return "Country:  " + location;
       break;
 
       case 'Device type':
@@ -751,15 +763,15 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".deviceSelectionType"))) {
         device =  device ? ("except " + device) : "";
       }
-      return "Device type: " + device;
+      return "Device type:  " + device;
       break;
 
       case 'Device OS':
       var os = getButtonsText(document.querySelector(".device_os_selected.selected_opt_area").childNodes);
       if(checkSelectionType(document.querySelector(".osSelectionType"))) {
-        os =  device ? ("except " + os) : "";
+        os =  os ? ("except " + os) : "";
       }
-      return "Device OS: " + os;
+      return "Device OS:  " + os;
       break;
 
       case 'Browser':
@@ -767,7 +779,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".browserSelectionType"))) {
         browser = browser ? ("except " + browser) : "";
       }
-      return "Browser: " + browser;
+      return "Browser:  " + browser;
       break;
 
       case 'Visit day':
@@ -775,12 +787,12 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".visitDaySelectionType"))) {
         visitDay = visitDay ? ("except " + visitDay) : "";
       }
-      return "Visit day: " + visitDay;
+      return "Visit day:  " + visitDay;
       break;
 
       case 'Visitor type':
       var visitorType = document.querySelector(".active_rad").getAttribute("data-val");
-      return "Visitor type: " + visitorType;
+      return "Visitor type:  " + visitorType;
       break;
 
       default:
@@ -792,7 +804,7 @@ $(document).ready(function () {
     var selectElems = document.querySelectorAll(".segmentCondition");
     console.log(selectElems);
     Array.prototype.forEach.call(selectElems, function(elem) {
-      console.log(elem, elem.options[elem.selectedIndex].text);
+      console.log(getSelections(elem.options[elem.selectedIndex].text));
       elem.parentNode.parentNode.querySelector('.selectedChoices > p').textContent = getSelections(elem.options[elem.selectedIndex].text);
     });
   }
