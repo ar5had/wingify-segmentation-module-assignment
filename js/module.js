@@ -168,7 +168,6 @@ $(document).ready(function () {
   }
 
   function activateSelectedChoices() {
-    console.log("activating selected choices");
     Array.prototype.forEach.call(document.querySelectorAll(".selectedChoices"), function(node) {
       node.className = "selectedChoices col-xs-12";
     });
@@ -813,7 +812,6 @@ $(document).ready(function () {
 
   function conditionSelectedSetup() {
     var selectElems = document.querySelectorAll(".segmentCondition");
-    console.log(selectElems);
     Array.prototype.forEach.call(selectElems, function(elem) {
       elem.parentNode.parentNode.querySelector('.selectedChoices > p').textContent = getSelections(elem.options[elem.selectedIndex].text);
     });
@@ -832,10 +830,16 @@ $(document).ready(function () {
   Array.prototype.forEach.call(combBtn, function(btn) {
     btn.addEventListener("click", function(){
       var segments = document.querySelectorAll(".selected_seg");
-
-      addCombinedSegment(segments);
+      if(segments.length > 1){
+        showModalForComb();
+      }
     });
   });
+
+  function showModalForComb() {
+    
+    addCombinedSegment(segments);
+  }
 
   function addCombinedSegment(selections) {
 
