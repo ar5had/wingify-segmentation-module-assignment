@@ -1072,3 +1072,7 @@ h3.orselection::after {
   color: #fff;
   margin: 10px auto;
 }
+
+.removeCondition, .andCondition, .orCondition, .actCondition {
+  vertical-align: middle;
+}

@@ -741,11 +741,15 @@ $(document).ready(function () {
   function bindSegmentConditionSelect(select) {
     select.addEventListener("change", function() {
       var selected = this.options[this.selectedIndex].text;
-      this.parentNode.parentNode.querySelector(".selectedChoices").className = "selectedChoices col-xs-12";
-      this.parentNode.parentNode.querySelector(".selectedChoices").style.marginTop = "15px";
-      console.log(this.parentNode.parentNode);
+      showSelectedChoices(this);
       this.parentNode.parentNode.querySelector(".selectedChoices > p").textContent = getSelections(selected);
     });
+  }
+
+  function showSelectedChoices(that) {
+
+    that.parentNode.parentNode.querySelector(".selectedChoices").className = "selectedChoices col-xs-12";
+    that.parentNode.parentNode.querySelector(".selectedChoices").style.marginTop = "15px";
   }
 
   function getSelections(text) {
@@ -804,7 +808,6 @@ $(document).ready(function () {
     var selectElems = document.querySelectorAll(".segmentCondition");
     console.log(selectElems);
     Array.prototype.forEach.call(selectElems, function(elem) {
-      console.log(getSelections(elem.options[elem.selectedIndex].text));
       elem.parentNode.parentNode.querySelector('.selectedChoices > p').textContent = getSelections(elem.options[elem.selectedIndex].text);
     });
   }
