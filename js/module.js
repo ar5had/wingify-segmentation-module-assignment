@@ -163,6 +163,14 @@ $(document).ready(function () {
       $(".showpopup").click();
       editPopup = true;
       editSegment = segment;
+      activateSelectedChoices();
+    });
+  }
+
+  function activateSelectedChoices() {
+    console.log("activating selected choices");
+    Array.prototype.forEach.call(document.querySelectorAll(".selectedChoices"), function(node) {
+      node.className = "selectedChoices col-xs-12";
     });
   }
 
@@ -747,7 +755,6 @@ $(document).ready(function () {
   }
 
   function showSelectedChoices(that) {
-
     that.parentNode.parentNode.querySelector(".selectedChoices").className = "selectedChoices col-xs-12";
     that.parentNode.parentNode.querySelector(".selectedChoices").style.marginTop = "15px";
   }
