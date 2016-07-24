@@ -1071,6 +1071,7 @@ h3.orselection::after {
   min-height: 0;
   color: #fff;
   margin: 10px auto;
+  font-style: italic;
 }
 
 .removeCondition, .andCondition, .orCondition, .actCondition {

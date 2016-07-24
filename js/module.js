@@ -765,6 +765,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".countriesSelectionType"))) {
         location = location ? ("except " + location) : "";
       }
+      location = location ? location : "nothing selected!";
       return "Country:  " + location;
       break;
 
@@ -773,6 +774,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".deviceSelectionType"))) {
         device =  device ? ("except " + device) : "";
       }
+      device = device ? device : "nothing selected!";
       return "Device type:  " + device;
       break;
 
@@ -781,6 +783,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".osSelectionType"))) {
         os =  os ? ("except " + os) : "";
       }
+      os = os ? os : "nothing selected!";
       return "Device OS:  " + os;
       break;
 
@@ -789,6 +792,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".browserSelectionType"))) {
         browser = browser ? ("except " + browser) : "";
       }
+      browser = browser ? browser : "nothing selected!";
       return "Browser:  " + browser;
       break;
 
@@ -797,6 +801,7 @@ $(document).ready(function () {
       if(checkSelectionType(document.querySelector(".visitDaySelectionType"))) {
         visitDay = visitDay ? ("except " + visitDay) : "";
       }
+      visitDay = visitDay ? visitDay : "nothing selected!";
       return "Visit day:  " + visitDay;
       break;
 
@@ -806,7 +811,7 @@ $(document).ready(function () {
       break;
 
       default:
-      console.log("Some Error happened while updating selection in advancedTab");
+      console.log("default case exec. while updating selection in advancedTab");
     }
   }
 
@@ -837,7 +842,7 @@ $(document).ready(function () {
   });
 
   function showModalForComb() {
-    
+
     addCombinedSegment(segments);
   }
 
