@@ -1077,3 +1077,14 @@ h3.orselection::after {
 .removeCondition, .andCondition, .orCondition, .actCondition {
   vertical-align: middle;
 }
+
+h3.conditionSelected.andselection {
+    margin: 15px auto;
+}
+
+/*************************** combination modal css ********************/
+
+.comb_content_wrapper {
+  padding: 0 10px;
+  margin-bottom: 50px;
+}

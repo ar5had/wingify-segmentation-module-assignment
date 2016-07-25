@@ -16,12 +16,12 @@
         <div class="sect_wrapper">
           <h1>Segments</h1>
           <div class="small_btn pull-right">
-            <button type="button" name="button" class="comb combineSegment hidden"><img src="images/merge.png"/></button>
+            <button type="button" name="button" class="comb combineSegment"><img src="images/merge.png"/></button>
             <button type="button" name="button" class="rem removeSegment"><span class="glyphicon glyphicon-trash"></span></button>
             <button type="button" name="button" class="add showpopup"><span class="glyphicon glyphicon-plus"></span></button>
           </div>
           <div class="large_btn pull-right">
-            <button type="button" name="button" class="comb_segment combineSegment hidden">Combine segment</button>
+            <button type="button" name="button" class="comb_segment combineSegment">Combine segment</button>
             <button type="button" name="button" class="rem_segment removeSegment">Remove segment</button>
             <button type="button" name="button" class="add_segment showpopup">Add Segment</button>
           </div>
@@ -60,6 +60,25 @@
             </div>
           </div>
           <div class="main_content">
+            <div class="comb_content hidden">
+              <div class="col-xs-12 comb_content_wrapper">
+                <div class="col-xs-12 firstHeading">
+                  <h2>Basic Info*</h2>
+                </div>
+                <div class="col-xs-12">
+                  <h3>Segment name</h3>
+                  <input type="text" class="comb_seg_name seg_name" maxlength="70"/>
+                </div>
+                <div class="col-xs-12 firstHeading marJ">
+                  <h2>Conditions</h2>
+                  <p class="conditionsInfo">Group segments and set different AND/OR condtions to make complex target segment</p>
+                </div>
+                <div class="combConditionsWrapper">
+
+                </div>
+              </div>
+            </div>
+
             <div class="tab basicTab">
               <div class="segment_info" id="start_mc">
                 <div class="col-xs-12 firstHeading">

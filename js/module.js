@@ -4,7 +4,7 @@ $(document).ready(function () {
   /********** variable declarations ***********/
 
   var selects = document.querySelectorAll("select.selectionVals");
-  var editPopup = false, editSegment = null;
+  var editPopup = false, combModalShow = false, editSegment = null;
   var radBtn = document.querySelectorAll(".radBtn");
   var empty_sect = document.querySelector(".empty_sect");
   var sections = document.querySelector(".sections");
@@ -25,8 +25,8 @@ $(document).ready(function () {
     $('#hider').removeClass("hidden");
     $('#popup').removeClass("hidden");
     $("body").addClass("modal-open");
-    $("#hider").fadeIn(300);
-    $('#popup').fadeIn(300);
+    $("#hider").fadeIn(200);
+    $('#popup').fadeIn(200);
     document.querySelector(".main_content").scrollTop = 0;
     initializeTabs();
   });
@@ -35,12 +35,16 @@ $(document).ready(function () {
 
   $(".buttonClose").click(function(event) {
     if(bindSelections()){
+      if(combModalShow){
+        console.log("modal window closing for combination of segments");
+        hideModalForComb();
+      }
       $("body").removeClass("modal-open");
-      $("#hider").fadeOut(300);
-      $('#popup').fadeOut(300);
+      $("#hider").fadeOut(200);
+      $('#popup').fadeOut(200);
       setTimeout(function(){
         refreshModal();
-      }, 350);
+      }, 250);
     }
     else {
       $(".main_content").animate({scrollTop: 0}, 500);
@@ -51,11 +55,12 @@ $(document).ready(function () {
 
   $(".buttonClosens").click(function () {
     $("body").removeClass("modal-open");
-    $("#hider").fadeOut(400);
-    $('#popup').fadeOut(400);
+    $("#hider").fadeOut(200);
+    $('#popup').fadeOut(200);
     setTimeout(function(){
       refreshModal();
-    }, 350);
+      hideModalForComb();
+    }, 250);
   });
 
   /********** error message popup settings **********/
@@ -835,15 +840,36 @@ $(document).ready(function () {
   Array.prototype.forEach.call(combBtn, function(btn) {
     btn.addEventListener("click", function(){
       var segments = document.querySelectorAll(".selected_seg");
-      if(segments.length > 1){
-        showModalForComb();
-      }
+      // if(segments.length > 1){
+      //   showModalForComb();
+      // }
+      showModalForComb();
     });
   });
 
   function showModalForComb() {
-
+    combModalShow = true;
+    $('#hider').removeClass("hidden");
+    $('#popup').removeClass("hidden");
+    $("body").addClass("modal-open");
+    $("#hider").fadeIn(300);
+    $('#popup').fadeIn(300);
+    $(".basicTab").addClass("hidden");
+    $(".advancedTab").addClass("hidden");
+    $(".comb_content").removeClass("hidden");
+    $(".tabBtns").addClass("hidden");
+    document.querySelector(".marJ").style.marginTop = "30px";
+    document.querySelector(".marJ").style.marginBottom = "20px";
+    document.querySelector(".main_content").scrollTop = 0;
     addCombinedSegment(segments);
+  }
+
+  function hideModalForComb() {
+    combModalShow = false;
+    $(".basicTab").removeClass("hidden");
+    $(".advancedTab").removeClass("hidden");
+    $(".comb_content").addClass("hidden");
+    $(".tabBtns").removeClass("hidden");
   }
 
   function addCombinedSegment(selections) {
