@@ -35,10 +35,10 @@ $(document).ready(function () {
 
   $(".buttonClose").click(function(event) {
     if(bindSelections()){
-      if(combModalShow){
-        console.log("modal window closing for combination of segments");
-        hideModalForComb();
-      }
+      // if(combModalShow){
+      //   console.log("modal window closing for combination of segments");
+      //   hideModalForComb();
+      // }
       $("body").removeClass("modal-open");
       $("#hider").fadeOut(200);
       $('#popup').fadeOut(200);
@@ -59,7 +59,7 @@ $(document).ready(function () {
     $('#popup').fadeOut(200);
     setTimeout(function(){
       refreshModal();
-      hideModalForComb();
+    //  hideModalForComb();
     }, 250);
   });
 
@@ -835,77 +835,77 @@ $(document).ready(function () {
   document.querySelector(".rem_segment").disabled = false;
 
   /******************segment grouping/combination setup****************/
-
-  var combBtn = document.querySelectorAll(".combineSegment");
-  Array.prototype.forEach.call(combBtn, function(btn) {
-    btn.addEventListener("click", function(){
-      var segments = document.querySelectorAll(".selected_seg");
-      // if(segments.length > 1){
-      //   showModalForComb();
-      // }
-      showModalForComb();
-    });
-  });
-
-  function showModalForComb() {
-    combModalShow = true;
-    $('#hider').removeClass("hidden");
-    $('#popup').removeClass("hidden");
-    $("body").addClass("modal-open");
-    $("#hider").fadeIn(300);
-    $('#popup').fadeIn(300);
-    $(".basicTab").addClass("hidden");
-    $(".advancedTab").addClass("hidden");
-    $(".comb_content").removeClass("hidden");
-    $(".tabBtns").addClass("hidden");
-    document.querySelector(".marJ").style.marginTop = "30px";
-    document.querySelector(".marJ").style.marginBottom = "20px";
-    document.querySelector(".main_content").scrollTop = 0;
-    addCombinedSegment(segments);
-  }
-
-  function hideModalForComb() {
-    combModalShow = false;
-    $(".basicTab").removeClass("hidden");
-    $(".advancedTab").removeClass("hidden");
-    $(".comb_content").addClass("hidden");
-    $(".tabBtns").removeClass("hidden");
-  }
-
-  function addCombinedSegment(selections) {
-
-    var section = document.createElement("section");
-    section.className = "segment_sect";
-
-    var control_btns_div = document.createElement('div');
-    control_btns_div.className = "control_btns";
-    var selectBtn = document.createElement("button");
-    selectBtn.className = "control_btn_select";
-    var editBtn = document.createElement("button");
-    editBtn.className = "control_btn_edit";
-    control_btns_div.appendChild(selectBtn);
-    control_btns_div.appendChild(editBtn);
-    section.appendChild(control_btns_div);
-
-    var seg_wrapper_div = document.createElement("div");
-    seg_wrapper_div.className = "seg_wrapper";
-    var seg_name_heading = document.createElement("h3");
-    seg_name_heading.id = "seg_name";
-    seg_name_heading.className = "col-xs-12";
-    var heading = document.createElement("h2");
-    heading.className = "col-xs-12";
-    heading.textContent = "Conditions"
-    seg_wrapper_div.appendChild(seg_name_heading);
-    seg_wrapper_div.appendChild(heading);
-
-    // set for loop here
-    var condition = document.createElement("p");
-    condition.className = "col-xs-12 conditionsHolder";
-    seg_wrapper_div.appendChild(condition);
-    //loop ends here
-
-    section.appendChild(seg_wrapper_div);
-    addSegment(section);
-  }
-
+//
+//   var combBtn = document.querySelectorAll(".combineSegment");
+//   Array.prototype.forEach.call(combBtn, function(btn) {
+//     btn.addEventListener("click", function(){
+//       var segments = document.querySelectorAll(".selected_seg");
+//        if(segments.length > 1){
+//          showModalForComb();
+//        }
+//       showModalForComb();
+//     });
+//   });
+//
+//   function showModalForComb() {
+//     combModalShow = true;
+//     $('#hider').removeClass("hidden");
+//     $('#popup').removeClass("hidden");
+//     $("body").addClass("modal-open");
+//     $("#hider").fadeIn(300);
+//     $('#popup').fadeIn(300);
+//     $(".basicTab").addClass("hidden");
+//     $(".advancedTab").addClass("hidden");
+//     $(".comb_content").removeClass("hidden");
+//     $(".tabBtns").addClass("hidden");
+//     document.querySelector(".top_content_heading").textContent = "Grouping";
+//     document.querySelector(".marJ").style.marginTop = "30px";
+//     document.querySelector(".marJ").style.marginBottom = "20px";
+//     document.querySelector(".main_content").scrollTop = 0;
+//     addCombinedSegment(segments);
+//   }
+//
+//   function hideModalForComb() {
+//     combModalShow = false;
+//     $(".basicTab").removeClass("hidden");
+//     $(".advancedTab").removeClass("hidden");
+//     $(".comb_content").addClass("hidden");
+//     $(".tabBtns").removeClass("hidden");
+//     document.querySelector(".top_content_heading").textContent = "Segment";
+//   }
+//
+//   function addCombinedSegment(selections) {
+//
+//     var section = document.createElement("section");
+//     section.className = "segment_sect";
+//
+//     var control_btns_div = document.createElement('div');
+//     control_btns_div.className = "control_btns";
+//     var selectBtn = document.createElement("button");
+//     selectBtn.className = "control_btn_select";
+//     var editBtn = document.createElement("button");
+//     editBtn.className = "control_btn_edit";
+//     control_btns_div.appendChild(selectBtn);
+//     control_btns_div.appendChild(editBtn);
+//     section.appendChild(control_btns_div);
+//
+//     var seg_wrapper_div = document.createElement("div");
+//     seg_wrapper_div.className = "seg_wrapper";
+//     var seg_name_heading = document.createElement("h3");
+//     seg_name_heading.id = "seg_name";
+//     seg_name_heading.className = "col-xs-12";
+//     var heading = document.createElement("h2");
+//     heading.className = "col-xs-12";
+//     heading.textContent = "Conditions"
+//     seg_wrapper_div.appendChild(seg_name_heading);
+//     seg_wrapper_div.appendChild(heading);
+//
+//     var condition = document.createElement("p");
+//     condition.className = "col-xs-12 conditionsHolder";
+//     seg_wrapper_div.appendChild(condition);
+//
+//     section.appendChild(seg_wrapper_div);
+//     addSegment(section);
+//   }
+//
 });

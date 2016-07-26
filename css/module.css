@@ -595,7 +595,7 @@ h3 {
   font-weight: 500;
 }
 
-input.seg_name, input.file_path, select {
+input.seg_name, input.file_path, select, input.comb_seg_name {
   border: none;
   background: white;
   padding: 12px;
@@ -1082,9 +1082,9 @@ h3.conditionSelected.andselection {
     margin: 15px auto;
 }
 
-/*************************** combination modal css ********************/
+/*************************** combination modal css ********************
 
 .comb_content_wrapper {
   padding: 0 10px;
   margin-bottom: 50px;
-}
+}*/
